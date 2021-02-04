@@ -1,8 +1,12 @@
-from flask import Flask, render_template      ## Imports that will be used throughout the app 
+''' Imports that will be used throughout the app:
+    1. Flask - Flask is the object that creates the flask app and allows all the flask features to be used
+    2. render_template - this import is used to 
+'''
+from flask import Flask, render_template  
 app = Flask(__name__)        ## Sets the app 
 
 @app.route('/')              ## This says that the function below will be run when the path "website/" is active
-def logIn():                 
+def logIn():              
     return render_template("login.html")    ## Whats returned from the function is displayed on the browser so LOGIN SCREEN 
                                       ## will be displayed
 
