@@ -13,8 +13,14 @@ app = Flask(__name__)        ## Sets the app
 def login():       
     ## this will run when the submit button has been pressed becuase that makes the request method POST not GET
     if request.method == "POST":  
+
         usr = request.form["usr"] ## sets usr variable to the value that was in the username field
         pas = request.form["pas"] ## sets pas variable to the value that was in the password field
+
+        ## 
+        if not usrAuth(usr, pas):
+            return "<h1>LOGIN UNSUCCESSFUL</h1>"
+
         ## this returns a temporary html page to display to test if the new functionality works
         return f"""
             <h1>LOGIN SUCCESSFUL</h1><br>
@@ -27,7 +33,25 @@ def login():
         return render_template("login.html")   ## Whats returned from the function is displayed on the browser so 
                                                ## LOGIN SCREEN will be displayed
 
+## takes input of a username and password and will return true if they are valid and false if not
+def usrAuth(usr, pas):
+    ## correct details, this will be fetched from the server later 
+    corrUsr = 'William'
+    corrPas = 'Password123'
+    
+    ## return true if they are valid and false if not
+    if corrUsr == usr and corrPas == pas:
+        return True
+    else: 
+        return False
+
+
+
+
+
 if __name__ == '__main__':  ## This makes sure the app runs when the python file is ran 
     app.run(debug = True)   ## The debug = true turns the debug on so that when there is an syntax error the 
                             ## browser will show where the problem is, making debugging eaiser
 
+
+    
