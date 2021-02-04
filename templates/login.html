@@ -3,25 +3,13 @@
     <!-- set the title of the web page -->
     <title>Dog Walker - LogIn</title>
      <!-- add style  to the site -->
-    <style>
-        h1{
-            text-align: center;
-            font-size: 50px;
-        }
-
-        form {
-            text-decoration: solid;
-            font-weight: 100;
-            font-style: normal;
-            font-size: 20px;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 </head>
 
 
 <body>
     <!-- Login header that appears at the top of the webpage -->
-    <h1>LOGIN<h1>
+    <h1>LOGIN</h1>
 
     <!-- This is the login form that will be displayed on the login page with the username and password fields 
     to be subbmitted POST method used-->
