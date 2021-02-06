@@ -17,9 +17,10 @@ def login():
         usr = request.form["usr"] ## sets usr variable to the value that was in the username field
         pas = request.form["pas"] ## sets pas variable to the value that was in the password field
 
-        ## 
+        ## this if statment will run if the login details are incorrect(usrAuth returns false) 
         if not usrAuth(usr, pas):
-            return "<h1>LOGIN UNSUCCESSFUL</h1>"
+            errorMsg = "Username or Password Incorect"  ## The error message that will be passed back into the template
+            return render_template("login.html", error=errorMsg) ## reloaded login template with error message
 
         ## this returns a temporary html page to display to test if the new functionality works
         return f"""
@@ -38,7 +39,7 @@ def usrAuth(usr, pas):
     ## correct details, this will be fetched from the server later 
     corrUsr = 'William'
     corrPas = 'Password123'
-    
+
     ## return true if they are valid and false if not
     if corrUsr == usr and corrPas == pas:
         return True
