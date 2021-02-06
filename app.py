@@ -37,8 +37,8 @@ def login():
 ## takes input of a username and password and will return true if they are valid and false if not
 def usrAuth(usr, pas):
     ## correct details, this will be fetched from the server later 
-    corrUsr = 'William'
-    corrPas = 'Password123'
+    corrUsr = 'Username'
+    corrPas = 'Password'
 
     ## return true if they are valid and false if not
     if corrUsr == usr and corrPas == pas:
