@@ -91,7 +91,3 @@ class dbClass:
         conn.commit()
 
         conn.close()
-
-db = dbClass()
-db.addUsr('usernameTest', 'passwordTest')
-print(db.search())
