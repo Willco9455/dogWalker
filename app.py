@@ -5,6 +5,7 @@
     4. url_for = this is a flask term that is used to create urls that reference files/functions within the app
 '''
 from flask import Flask, render_template, request, url_for
+
 app = Flask(__name__)        ## Sets the app 
 
 ## This says that the function below will be run when the path "website/" is active the methods array is just flask 
@@ -45,9 +46,6 @@ def usrAuth(usr, pas):
         return True
     else: 
         return False
-
-
-
 
 
 if __name__ == '__main__':  ## This makes sure the app runs when the python file is ran 
