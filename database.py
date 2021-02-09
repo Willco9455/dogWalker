@@ -95,7 +95,3 @@ class dbClass:
 db = dbClass()
 db.addUsr('usernameTest', 'passwordTest')
 print(db.search())
-
-
-
-# db.clrTbl()
