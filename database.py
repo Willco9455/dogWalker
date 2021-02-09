@@ -59,13 +59,16 @@ class dbClass:
     
     ## This method of the databse object will be used to add new users to the database   
     # the function takes the perameters of usr = the new users username, pas = the new users password 
-    def addusr(self, usr, pas):
-        ## uses the search method of the database to find any users that already have the username passed into the method 
+    def addUsr(self, usr, pas):
+        ## Uses the search method of the database to find any users that already have the username passed 
+        # into the method 
         srchRes = self.search('username', usr)
-        if len(srchRes) != 0:
+        if len(srchRes) != 0: # if there are matching usernames return out of the addUSr method
             print('Username already exists ')
             return 
-        
+
+        ## If there is no existing username in the database then connect to the database and add the user
+        #  to the database
         conn = sqlite3.connect('main.db')
         c = conn.cursor()
         c.execute(f'INSERT INTO users (username, password) VALUES ("{usr}", "{pas}")')
@@ -90,11 +93,9 @@ class dbClass:
         conn.close()
 
 db = dbClass()
-# db.clrTbl()
-db.addusr('squilliam9455', 'Password')
+db.addUsr('usernameTest', 'passwordTest')
 print(db.search())
 
 
 
-
-
+# db.clrTbl()
