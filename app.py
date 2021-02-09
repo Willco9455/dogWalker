@@ -5,8 +5,11 @@
     4. url_for = this is a flask term that is used to create urls that reference files/functions within the app
 '''
 from flask import Flask, render_template, request, url_for
+from database import dbClass
 
 app = Flask(__name__)        ## Sets the app 
+
+db = dbClass()
 
 ## This says that the function below will be run when the path "website/" is active the methods array is just flask 
 ## terminology that allows both different mehods to be used in that path(GET and POST)
@@ -37,15 +40,22 @@ def login():
 
 ## takes input of a username and password and will return true if they are valid and false if not
 def usrAuth(usr, pas):
-    ## correct details, this will be fetched from the server later 
-    corrUsr = 'Username'
-    corrPas = 'Password'
+
+    try:
+        dbUser = (db.search('username', usr))[0]
+    except:
+        return False
+
+    ## correct details, that are fetched from the server
+    corrUsr = dbUser[1]
+    corrPas = dbUser[2]
 
     ## return true if they are valid and false if not
     if corrUsr == usr and corrPas == pas:
         return True
     else: 
         return False
+
 
 
 if __name__ == '__main__':  ## This makes sure the app runs when the python file is ran 
