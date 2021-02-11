@@ -6,9 +6,9 @@
 '''
 from flask import Flask, render_template, request, url_for
 from database import dbClass
+from login import *
 
 app = Flask(__name__)        ## Sets the app 
-
 db = dbClass()
 
 ## This says that the function below will be run when the path "website/" is active the methods array is just flask 
@@ -35,28 +35,12 @@ def login():
         """
     ## This will run when first entereing the webpage 
     else: 
-        return render_template("login.html")   ## Whats returned from the function is displayed on the browser so 
+        return render_template('login.html')   ## Whats returned from the function is displayed on the browser so 
                                                ## LOGIN SCREEN will be displayed
 
-## Takes input of a username and password and will return true if they are valid and false if not
-def usrAuth(usr, pas):
-     
-     ## This try and except will try to retive the record for the username entered and store it in dbUser however 
-     # if no username exists(result of search function returns empyt) the whole function will return false
-    try:
-        dbUser = (db.search('username', usr))[0]
-    except:
-        return False
-
-    ## correct details, that are fetched from the server
-    corrUsr = dbUser[1]
-    corrPas = dbUser[2]
-
-    ## return true if they are valid and false if not
-    if corrUsr == usr and corrPas == pas:
-        return True
-    else: 
-        return False
+@app.route('/register')
+def register():
+    return render_template('register.html')
 
 
 
