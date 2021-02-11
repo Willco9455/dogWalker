@@ -38,9 +38,11 @@ def login():
         return render_template("login.html")   ## Whats returned from the function is displayed on the browser so 
                                                ## LOGIN SCREEN will be displayed
 
-## takes input of a username and password and will return true if they are valid and false if not
+## Takes input of a username and password and will return true if they are valid and false if not
 def usrAuth(usr, pas):
-
+     
+     ## This try and except will try to retive the record for the username entered and store it in dbUser however 
+     # if no username exists(result of search function returns empyt) the whole function will return false
     try:
         dbUser = (db.search('username', usr))[0]
     except:

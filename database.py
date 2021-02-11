@@ -51,11 +51,13 @@ class dbClass:
             c.execute(f'SELECT * FROM users')
             data = c.fetchall()  
 
+        conn.commit()
+        conn.close()
+
         ## Whatever is held in the data variable will be returned from the function 
         return(data)
 
-        conn.commit()
-        conn.close()
+        
     
     ## This method of the databse object will be used to add new users to the database   
     # the function takes the perameters of usr = the new users username, pas = the new users password 
@@ -91,3 +93,11 @@ class dbClass:
         conn.commit()
 
         conn.close()
+
+# db = dbClass()
+# while True: 
+#     inp = input(': ')
+#     if inp == 'clear':
+#         db.clrTbl()
+#     elif inp == 'show':
+#         print(db.search())
