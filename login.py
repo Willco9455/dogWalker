@@ -35,7 +35,6 @@ def registerAuth(usr, pas1, pas2):
         print('passwords do not match')
         return False
 
-    
     ## This verifies if the username has at least 1 number in it
     val = False # Variable that will change to True if number found
     for i in pas1: # Loops through each charater in the username 

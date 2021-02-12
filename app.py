@@ -4,7 +4,7 @@
     3. request = this import is used when paths are fist loaded to tell which method was used in loading the page
     4. url_for = this is a flask term that is used to create urls that reference files/functions within the app
 '''
-from flask import Flask, render_template, request, url_for
+from flask import Flask, render_template, request, url_for, redirect
 from database import dbClass
 from login import *
 
@@ -38,9 +38,20 @@ def login():
         return render_template('login.html')   ## Whats returned from the function is displayed on the browser so 
                                                ## LOGIN SCREEN will be displayed
 
-@app.route('/register')
+@app.route('/register', methods=['GET', 'POST'])
 def register():
-    return render_template('register.html')
+    if request.method == "POST": 
+        usr = request.form['usr']
+        pas1 = request.form['pas1']
+        pas2 = request.form['pas2']
+        if registerAuth(usr, pas1, pas2):
+            db.addUsr(usr, pas1)
+            return redirect(url_for('login'))
+        else:
+            return render_template('register.html', error='There was an error')
+
+    else:
+        return render_template('register.html')
 
 
 
