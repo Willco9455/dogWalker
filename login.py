@@ -23,6 +23,7 @@ def usrAuth(usr, pas):
     else: 
         return False
 
+## Function for register screen that verifies that all the details entered into the form are valid 
 def registerAuth(usr, pas1, pas2):
     ## First part checks if the username is grater than or equal to 8 characters
     if len(usr) < 8:
@@ -40,14 +41,21 @@ def registerAuth(usr, pas1, pas2):
     for i in pas1: # Loops through each charater in the username 
         # If the charcter is a number set val to True 
         if i.isdigit():
-            val = True
+            val = True  
     # If val is False exit the function and return False
     if not val:
         print('No Number')
         return False
 
-    return True
+    # Checks if the pasword is grater than or equal to 8
+    if len(pas1) < 8:
+        print('Password must be at least 8 characters long')
+        return False
+
+    ## This section happens when all register criteria are fit
+    print('valid') ## temporaty for testing purposes 
+    return True 
     
 
-# registerAuth('username1', 1, 1)
+registerAuth('usern', 'passwo1', 'passwo1')
 
