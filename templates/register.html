@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>DogWalker-Register</title>
+    <!-- links the main css fail into the template so the style will be update with the main css -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 </head>
 
@@ -16,8 +17,8 @@
         <input type="password" name="pas1" placeholder="Password"><br>
         <input type="password" name="pas2" placeholder="Confirm Password"><br>
         <input type="submit" value="Regiser" >
+        <!-- This is where the variable "error" is passed into the function will appear  -->
         <p style="color: red;">{{ error }}</p>
     </form>
 </body>
-
 </html>

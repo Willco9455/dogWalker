@@ -38,19 +38,30 @@ def login():
         return render_template('login.html')   ## Whats returned from the function is displayed on the browser so 
                                                ## LOGIN SCREEN will be displayed
 
+## This is the function that will run when the website/register route is loaded 
+# It has both get and post becuase post method is used when the user clicks the submit button so the function can
+# act differently 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    ## When the user has clicked the submit button this if statment runs
     if request.method == "POST": 
+        ## The data inputed by the user is taken from the form variables and transfered to python variables with
+        # the same name   
         usr = request.form['usr']
         pas1 = request.form['pas1']
         pas2 = request.form['pas2']
+        # If statment that checks if the inputed data is valid 
         if registerAuth(usr, pas1, pas2):
+            # If the data is valid the new user is added to the datbase using the databases functions
             db.addUsr(usr, pas1)
+            # Then redirects to the login screen 
             return redirect(url_for('login'))
         else:
+            ## If the entered details are invalid then redirect back to the register template with the error message
             return render_template('register.html', error='There was an error')
 
     else:
+        ## If the user has not clicked the submit button load the register.html tempalte with no error message
         return render_template('register.html')
 
 

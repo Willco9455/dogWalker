@@ -55,6 +55,6 @@ def registerAuth(usr, pas1, pas2):
     print('valid') ## temporaty for testing purposes 
     return True 
     
-
-registerAuth('usern', 'passwo1', 'passwo1')
+#           username  password1  password2
+registerAuth('Username', 'Password', 'Password1')
 
