@@ -25,35 +25,43 @@ def usrAuth(usr, pas):
 
 ## Function for register screen that verifies that all the details entered into the form are valid 
 def registerAuth(usr, pas1, pas2):
+    ## This section will check if the username is already taken or not 
+    reslt = db.search('username', usr)
+    if len(reslt) > 0: 
+        err = 'That username is already taken'
+        return False, err
+
+
     ## First part checks if the username is grater than or equal to 8 characters
     if len(usr) < 8:
-        print('username must be at least 8 characters long')
-        return False
+        err = 'Username must be at least 8 characters long'
+        return False, err
 
     ## Checks if passwords match
     if pas1 != pas2:
-        print('passwords do not match')
-        return False
+        ## error message that will apear on the register screen 
+        err = 'Passwords do not match'
+        return False, err
 
     ## This verifies if the username has at least 1 number in it
     val = False # Variable that will change to True if number found
     for i in pas1: # Loops through each charater in the username 
         # If the charcter is a number set val to True 
         if i.isdigit():
-            val = True  
+            val = True
     # If val is False exit the function and return False
     if not val:
-        print('No Number')
-        return False
+        err  = 'Username does not include any numbers'
+        return False, err
 
     # Checks if the pasword is grater than or equal to 8
     if len(pas1) < 8:
-        print('Password must be at least 8 characters long')
-        return False
+        err = 'Password must be at least 8 characters long'
+        return False, err
 
     ## This section happens when all register criteria are fit
     print('valid') ## temporaty for testing purposes 
-    return True 
+    return True, '' 
     
 #           username  password1  password2
 registerAuth('Username', 'Password', 'Password1')

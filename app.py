@@ -50,15 +50,17 @@ def register():
         usr = request.form['usr']
         pas1 = request.form['pas1']
         pas2 = request.form['pas2']
+
+        result, err = registerAuth(usr, pas1, pas2)
         # If statment that checks if the inputed data is valid 
-        if registerAuth(usr, pas1, pas2):
+        if result:
             # If the data is valid the new user is added to the datbase using the databases functions
             db.addUsr(usr, pas1)
             # Then redirects to the login screen 
             return redirect(url_for('login'))
         else:
             ## If the entered details are invalid then redirect back to the register template with the error message
-            return render_template('register.html', error='There was an error')
+            return render_template('register.html', error=err)
 
     else:
         ## If the user has not clicked the submit button load the register.html tempalte with no error message
