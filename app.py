@@ -27,12 +27,7 @@ def login():
             return render_template("login.html", error=errorMsg) ## reloaded login template with error message
 
         ## this returns a temporary html page to display to test if the new functionality works
-        return f"""
-            <h1>LOGIN SUCCESSFUL</h1><br>
-            
-            <p>your username is {usr}</p>
-            <p>your password is {pas}</p>
-        """
+        return render_template('')
     ## This will run when first entereing the webpage 
     else: 
         return render_template('login.html')   ## Whats returned from the function is displayed on the browser so 
@@ -65,6 +60,10 @@ def register():
     else:
         ## If the user has not clicked the submit button load the register.html tempalte with no error message
         return render_template('register.html')
+
+@app.route('/home')
+def home():
+    return render_template('home.html')
 
 
 
