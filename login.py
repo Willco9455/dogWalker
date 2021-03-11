@@ -43,21 +43,23 @@ def registerAuth(usr, pas1, pas2):
         err = 'Passwords do not match'
         return False, err
 
-    ## This verifies if the username has at least 1 number in it
+    # Checks if the pasword is grater than or equal to 8
+    if len(pas1) < 8:
+        err = 'Password must be at least 8 characters long'
+        return False, err
+
+        
+    ## This verifies if the password has at least 1 number in it
     val = False # Variable that will change to True if number found
-    for i in pas1: # Loops through each charater in the username 
+    for i in pas1: # Loops through each charater in the password
         # If the charcter is a number set val to True 
         if i.isdigit():
             val = True
     # If val is False exit the function and return False
     if not val:
-        err  = 'Username does not include any numbers'
+        err  = 'Password does not include any numbers'
         return False, err
 
-    # Checks if the pasword is grater than or equal to 8
-    if len(pas1) < 8:
-        err = 'Password must be at least 8 characters long'
-        return False, err
 
     ## This section happens when all register criteria are fit
     print('valid') ## temporaty for testing purposes 
