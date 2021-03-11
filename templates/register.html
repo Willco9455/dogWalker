@@ -9,13 +9,19 @@
 <body>
     <h1>REGISTER</h1>
     <form method="POST">
-        <label>Username:</label><br>
+        <label>Email:</label>
         <!-- the username input has name usr which will be used when retriving this data  -->
-        <input type="text" name="usr" placeholder="Username"><br> 
-        <label >Password:</label><br>
+        <input type="text" name="email" placeholder="Email"><br> 
+        <label >Password:</label>
         <!-- the password input has name pas which will be used when retriving this data  -->
-        <input type="password" name="pas1" placeholder="Password"><br>
+        <input type="password" name="pas1" placeholder="Password">
         <input type="password" name="pas2" placeholder="Confirm Password"><br>
+
+        <label >First Name:</label>
+        <input type="text" name="fName" placeholder="First Name"><br>
+        <label >First Name:</label>
+        <input type="text" name="lName" placeholder="Last Name"><br>
+
         <input type="submit" value="Regiser" >
         <!-- This is where the variable "error" is passed into the function will appear  -->
         <p style="color: red;">{{ error }}</p>

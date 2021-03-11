@@ -22,8 +22,10 @@ class dbClass:
         try:
             c.execute(''' CREATE TABLE users (
             usrId integer primary key,
-            username text,
-            password text
+            email text,
+            password text,
+            firstName text,
+            lastName text
             )''')
             conn.commit()
             conn.close()
@@ -39,8 +41,8 @@ class dbClass:
 
         ## If col peramerter is username then all records where the username matches the search perameter will be 
         # stored in data as an array of arrays
-        if col == "username":
-            c.execute(f'SELECT * FROM users WHERE username="{search}"')
+        if col == "email":
+            c.execute(f'SELECT * FROM users WHERE email="{search}"')
             data = c.fetchall()
         ## The same goes for if the col perameter is password 
         elif col == "password":
@@ -49,7 +51,7 @@ class dbClass:
         ## If no peramerters are passed into the function then all records are sotred in data variable 
         else:
             c.execute(f'SELECT * FROM users')
-            data = c.fetchall()  
+            data = c.fetchall()
 
         conn.commit()
         conn.close()
@@ -61,10 +63,10 @@ class dbClass:
     
     ## This method of the databse object will be used to add new users to the database   
     # the function takes the perameters of usr = the new users username, pas = the new users password 
-    def addUsr(self, usr, pas):
+    def addUsr(self, email, pas, fName, lName):
         ## Uses the search method of the database to find any users that already have the username passed 
         # into the method 
-        srchRes = self.search('username', usr)
+        srchRes = self.search('email', email)
         if len(srchRes) != 0: # if there are matching usernames return out of the addUSr method
             print('Username already exists ')
             return 
@@ -73,7 +75,9 @@ class dbClass:
         #  to the database
         conn = sqlite3.connect('main.db')
         c = conn.cursor()
-        c.execute(f'INSERT INTO users (username, password) VALUES ("{usr}", "{pas}")')
+        c.execute(f'''INSERT INTO users (email, password, firstName, lastName) 
+            VALUES ("{email}", "{pas}", "{fName}", "{lName}")
+            ''')
 
         conn.commit()
         conn.close()
@@ -87,14 +91,30 @@ class dbClass:
         conn.commit()
         c.execute(''' CREATE TABLE users (
             usrId integer primary key,
-            username text,
-            password text
+            email text,
+            password text,
+            firstName text,
+            lastName text
             )''')
         conn.commit()
 
         conn.close()
 
-
+db = dbClass()
+class user:
+    usrId = 0
+    email = ""
+    pas = ""
+    fName = ""
+    lName = ""
+    def __init__(self, inpEmail):
+        details = (db.search('email', inpEmail))[0]
+        print(details)
+        self.usrId = details[0]
+        self.email = details[1]
+        self.pas = details[2]
+        self.fName = details[3]
+        self.lName = details[4]
 
 # db = dbClass()
 # while True: 
