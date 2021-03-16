@@ -113,7 +113,6 @@ class user:
     lName = ""
     def __init__(self, usrId):
         details = (db.search('usrId', usrId))[0]
-        print(details)
         self.usrId = details[0]
         self.email = details[1]
         self.pas = details[2]

@@ -75,6 +75,10 @@ def home():
     usrObj = user(session['usrId'])
     return render_template('home.html', usrObj=usrObj)
 
+@app.route('/availability')
+def availability():
+    return render_template('availability.html')
+
 
 
 if __name__ == '__main__':  ## This makes sure the app runs when the python file is ran 

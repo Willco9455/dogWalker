@@ -4,9 +4,18 @@
     <title>Dog Walker</title>
      <!-- add style  to the site -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
 </head>
 
 <body>
     <img src="{{ url_for('static', filename='profilePic.png') }}">
-    <p>Welcome {{ usrObj.fName }} {{ usrObj.lName }}</p>
+    <p>Welcome, {{ usrObj.fName }} {{ usrObj.lName }}</p>
+    <div>
+        
+        <p>
+            <span style="font-weight: bold;">Change your availability</span><br>
+            Change when you are available for walking <br>
+            <a href="availability">Click Here</a>
+        </p>
+    </div>
 </body>
