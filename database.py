@@ -48,6 +48,9 @@ class dbClass:
         elif col == "password":
             c.execute(f'SELECT * FROM users WHERE password="{search}"')
             data = c.fetchall() 
+        elif col == "usrId":
+            c.execute(f'SELECT * FROM users WHERE usrId="{search}"')
+            data = c.fetchall() 
         ## If no peramerters are passed into the function then all records are sotred in data variable 
         else:
             c.execute(f'SELECT * FROM users')
@@ -100,6 +103,7 @@ class dbClass:
 
         conn.close()
 
+
 db = dbClass()
 class user:
     usrId = 0
@@ -107,8 +111,8 @@ class user:
     pas = ""
     fName = ""
     lName = ""
-    def __init__(self, inpEmail):
-        details = (db.search('email', inpEmail))[0]
+    def __init__(self, usrId):
+        details = (db.search('usrId', usrId))[0]
         print(details)
         self.usrId = details[0]
         self.email = details[1]

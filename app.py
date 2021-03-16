@@ -27,12 +27,11 @@ def login():
         if not usrAuth(email, pas):
             errorMsg = "Username or Password Incorect"  ## The error message that will be passed back into the template
             return render_template("login.html", error=errorMsg) ## reloaded login template with error message
-
-        session['email'] = email
-        session['pas'] = pas
-        obj = user(email)
-        session['fName'] = obj.fName
-        session['lName'] = obj.lName
+        
+        # This part will get all the details on the user just logged in and saves there unique usrId
+        db = dbClass() #Initialised the database 
+        usrDetails = (db.search('email', email))[0]
+        session['usrId'] = usrDetails[0]
 
         ## this returns a temporary html page to display to test if the new functionality works
         return redirect(url_for('home'))
@@ -73,8 +72,8 @@ def register():
 
 @app.route('/home')
 def home():
-    
-    return render_template('home.html')
+    usrObj = user(session['usrId'])
+    return render_template('home.html', usrObj=usrObj)
 
 
 
