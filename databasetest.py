@@ -42,9 +42,14 @@ class dbClass:
 
         conn.close()
 
+    # Method that will add an avilability record for one day of one user if there is already a record there it will replace it 
     def addAvail(self, usrId, day, startTime, endTime):
+        ## connects to database 
         conn = sqlite3.connect('test.db')
         c = conn.cursor()
+
+        ## will delete
+        self.delAvail(usrId, day)
         c.execute(f'''
         INSERT INTO availability (usrId, day, startTime, endTime)
         VALUES ({usrId}, "{day}","{startTime}","{endTime}")
@@ -52,15 +57,41 @@ class dbClass:
         conn.commit()
         conn.close()
 
+    ## this method will take in the usrId of any user whithin the database and will 
     def getAvail(self, usrId):
+        days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
+        conn = sqlite3.connect('test.db')
+        c = conn.cursor()
+        avail = []
+        for i in days:
+            try:
+                c.execute(f'select * FROM availability WHERE usrId = {usrId} AND day = "{i}"')
+                data = c.fetchall() 
+                avail.append([[data[0][2]],[data[0][3]]])
+            except:
+                avail.append(['none', 'none'])
+        
+        print(avail)
+        return(avail)
+
+    def delAvail(self, usrId, day):
+        ## connects to database 
         conn = sqlite3.connect('test.db')
         c = conn.cursor()
 
+        ## will delete the record with the usrId and the same day if there is one
+        c.execute(f'select * FROM availability WHERE usrId = {usrId} AND day = "{day}"')
+        data = c.fetchall() 
+        if len(data) > 0:
+            c.execute(f'DELETE FROM availability WHERE usrId = {usrId} AND day = "{day}"')
+        
+        conn.commit()
+        conn.close()
 
     def show(self):
         conn = sqlite3.connect('test.db')
         c = conn.cursor() 
-        c.execute('select * FROM availability WHERE usrId = 5 AND day = "monday"' )
+        c.execute('select * FROM availability WHERE usrId = 5 ')
         data = c.fetchall()
         print(data)
         conn.commit()
@@ -68,8 +99,9 @@ class dbClass:
 
 
 db = dbClass()
-# db.addAvail(5, 'tuesday', '17:05', '19:00')
+db.addAvail(5, 'saturday', '18:00', '20:00')
 db.show()
+# db.getAvail(2)
 
 # db = dbClass()
 # while True: 
