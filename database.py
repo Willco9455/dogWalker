@@ -27,10 +27,25 @@ class dbClass:
             firstName text,
             lastName text
             )''')
-            conn.commit()
-            conn.close()
         except:
             pass
+        
+        ## creates the availability table if it does not already exist 
+        try:
+            c.execute(''' CREATE TABLE availability (
+            usrId integer,
+            day text,
+            startTime text,
+            endTime text,
+            PRIMARY KEY (usrId, day)
+            )''')
+        except:
+            pass
+
+        ## closes connectrion to database
+        conn.commit()
+        conn.close()
+    
 
     ## This function will be used to search through specific collumns and return the record that matches the search
     # the two perametres col and search can be null, if they are the function will just return all records in the database
@@ -62,7 +77,6 @@ class dbClass:
         ## Whatever is held in the data variable will be returned from the function 
         return(data)
 
-        
     
     ## This method of the databse object will be used to add new users to the database   
     # the function takes the perameters of usr = the new users username, pas = the new users password 
@@ -101,6 +115,84 @@ class dbClass:
             )''')
         conn.commit()
 
+        conn.close()
+
+#####################################################################################################################
+################################# START OF AVAILABILITY FUNCTIONALITY ###############################################
+#####################################################################################################################
+
+    def clrAvail(self):
+        conn = sqlite3.connect('test.db')
+        c = conn.cursor()
+        c.execute('DROP TABLE availability')
+        conn.commit()
+        c.execute(''' CREATE TABLE availability (
+            usrId integer,
+            day text,
+            startTime text,
+            endTime text,
+            PRIMARY KEY (usrId, day)
+            )''')
+        conn.commit()
+
+        conn.close()
+
+    # Method that will add an avilability record for one day of one user if there is already a record 
+    # there it will replace it 
+    def addAvail(self, usrId, day, startTime, endTime):
+        ## connects to database 
+        conn = sqlite3.connect('test.db')
+        c = conn.cursor()
+
+        ## will delete any record that currently has the same usrId and day together 
+        self.delAvail(usrId, day)
+        # Inserts the new data into the table
+        c.execute(f'''
+        INSERT INTO availability (usrId, day, startTime, endTime)
+        VALUES ({usrId}, "{day}","{startTime}","{endTime}")
+        ''')
+        conn.commit()
+        conn.close()
+    
+    ''' This method will take in the usrId and will return the availability of that user in the form of an array
+               Monday               Tuesday            Wednesday
+        [startTime, endTime],[startTime, endTime],[startTime, endTime] , .....etc]
+        time will be ['none', 'none'] if there is no record of availability '''
+    def getAvail(self, usrId):
+        # List of all the days that wil lbe looped throug later 
+        days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
+        # Connects to the database 
+        conn = sqlite3.connect('test.db')
+        c = conn.cursor()
+        # Empty availability array that will be fileld and returned from the method
+        avail = []
+        # Loops through all the days
+        for i in days:
+            # For each day attempt to fetch a record from the database
+            try:
+                c.execute(f'select * FROM availability WHERE usrId = {usrId} AND day = "{i}"')
+                data = c.fetchall() 
+                avail.append([[data[0][2]],[data[0][3]]])
+            # If there is no record add ['none', 'none'] for that day
+            except:
+                avail.append(['none', 'none'])
+        # Return the avail array from the method
+        return(avail)
+    
+    # Deletes record with the usrId and day that are passwd into the function if there is no match nothing will happen
+    def delAvail(self, usrId, day):
+        ## connects to database 
+        conn = sqlite3.connect('test.db')
+        c = conn.cursor()
+
+        ## Checks if there is any data with the same usrId and day already 
+        c.execute(f'select * FROM availability WHERE usrId = {usrId} AND day = "{day}"')
+        data = c.fetchall() 
+        ## if there is data there already then it will remove it from the table otherwise nothing will happen 
+        if len(data) > 0:
+            c.execute(f'DELETE FROM availability WHERE usrId = {usrId} AND day = "{day}"')
+        
+        conn.commit()
         conn.close()
 
 
