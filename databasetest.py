@@ -42,14 +42,16 @@ class dbClass:
 
         conn.close()
 
-    # Method that will add an avilability record for one day of one user if there is already a record there it will replace it 
+    # Method that will add an avilability record for one day of one user if there is already a record 
+    # there it will replace it 
     def addAvail(self, usrId, day, startTime, endTime):
         ## connects to database 
         conn = sqlite3.connect('test.db')
         c = conn.cursor()
 
-        ## will delete
+        ## will delete any record that currently has the same usrId and day together 
         self.delAvail(usrId, day)
+        # Inserts the new data into the table
         c.execute(f'''
         INSERT INTO availability (usrId, day, startTime, endTime)
         VALUES ({usrId}, "{day}","{startTime}","{endTime}")
@@ -74,14 +76,16 @@ class dbClass:
         print(avail)
         return(avail)
 
+    # Deletes record with the usrId and day that are passwd into the function if there is no match nothing will happen
     def delAvail(self, usrId, day):
         ## connects to database 
         conn = sqlite3.connect('test.db')
         c = conn.cursor()
 
-        ## will delete the record with the usrId and the same day if there is one
+        ## Checks if there is any data with the same usrId and day already 
         c.execute(f'select * FROM availability WHERE usrId = {usrId} AND day = "{day}"')
         data = c.fetchall() 
+        ## if there is data there already then it will remove it from the table otherwise nothing will happen 
         if len(data) > 0:
             c.execute(f'DELETE FROM availability WHERE usrId = {usrId} AND day = "{day}"')
         
