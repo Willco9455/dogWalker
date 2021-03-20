@@ -122,7 +122,7 @@ class dbClass:
 #####################################################################################################################
 
     def clrAvail(self):
-        conn = sqlite3.connect('test.db')
+        conn = sqlite3.connect('main.db')
         c = conn.cursor()
         c.execute('DROP TABLE availability')
         conn.commit()
@@ -141,7 +141,7 @@ class dbClass:
     # there it will replace it 
     def addAvail(self, usrId, day, startTime, endTime):
         ## connects to database 
-        conn = sqlite3.connect('test.db')
+        conn = sqlite3.connect('main.db')
         c = conn.cursor()
 
         ## will delete any record that currently has the same usrId and day together 
@@ -162,7 +162,7 @@ class dbClass:
         # List of all the days that wil lbe looped throug later 
         days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
         # Connects to the database 
-        conn = sqlite3.connect('test.db')
+        conn = sqlite3.connect('main.db')
         c = conn.cursor()
         # Empty availability array that will be fileld and returned from the method
         avail = []
@@ -182,7 +182,7 @@ class dbClass:
     # Deletes record with the usrId and day that are passwd into the function if there is no match nothing will happen
     def delAvail(self, usrId, day):
         ## connects to database 
-        conn = sqlite3.connect('test.db')
+        conn = sqlite3.connect('main.db')
         c = conn.cursor()
 
         ## Checks if there is any data with the same usrId and day already 
@@ -221,8 +221,8 @@ class user:
     
 
 
-db = dbClass()
-print(db.getAvail(2))
+# db = dbClass()
+# print(db.getAvail(2))
 # db.addAvail(2, 'tuesday', '08:00', '18:00')
 
 # while True: 
