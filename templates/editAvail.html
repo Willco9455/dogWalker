@@ -7,7 +7,13 @@
 </head>
 
 <body>
-    <h1>EDITING {{ day }}</h1>
-
+    <h1>{{ day.capitalize() }}</h1>
+    <form method="POST">
+        <label for="startTime">Start Time:</label>
+        <input id="startTime" type="time" name="startTime" required><br>
+        <label for="endTime">End Time:</label>
+        <input id="endTime" type="time" name="endTime" required><br>
+        <input type="submit" value="Edit">
+    </form>
 
 </body>

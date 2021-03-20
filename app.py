@@ -79,12 +79,19 @@ def home():
 def availability():
     usrObj = user(session['usrId'])
     avail = usrObj.getAvail()
-    days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+    days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
     return render_template('availability.html', avail=avail, days=days)
 
-@app.route('/editAvail/<day>')
+@app.route('/editAvail/<day>', methods=['GET', 'POST'])
 def editAvail(day):
-    return render_template('editAvail.html', day=day)
+    if request.method == "POST":
+        startTime = request.form['startTime']
+        endTime = request.form['endTime']
+        usrObj = user(session['usrId'])
+        usrObj.addAvail(day, str(startTime), str(endTime))
+        return redirect(url_for('availability'))
+    else:
+        return render_template('editAvail.html', day=day)
 
 
 if __name__ == '__main__':  ## This makes sure the app runs when the python file is ran 
