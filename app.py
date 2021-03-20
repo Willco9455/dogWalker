@@ -75,8 +75,10 @@ def home():
     usrObj = user(session['usrId'])
     return render_template('home.html', usrObj=usrObj)
 
+
 @app.route('/availability')
 def availability():
+    # creates a user object 
     usrObj = user(session['usrId'])
     avail = usrObj.getAvail()
     days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
