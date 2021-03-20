@@ -77,8 +77,14 @@ def home():
 
 @app.route('/availability')
 def availability():
-    return render_template('availability.html')
+    usrObj = user(session['usrId'])
+    avail = usrObj.getAvail()
+    days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+    return render_template('availability.html', avail=avail, days=days)
 
+@app.route('/editAvail/<day>')
+def editAvail(day):
+    return render_template('editAvail.html', day=day)
 
 
 if __name__ == '__main__':  ## This makes sure the app runs when the python file is ran 

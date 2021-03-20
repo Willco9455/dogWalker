@@ -1,10 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dog Walker - Availability</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/availability.css') }}">
 </head>
 
 <body>
+    {% for i in range(0,7) %}
+    <a class="link" href="editAvail/{{ days[i] }}">
+        <div  class="dayContainer">
+                <span style="font-weight: bold;">{{ days[i] }}</span><br>
+
+                {% if avail[i][0] == 'none' %}
+                    You have set no availability for <br>this day just kick back and relax<br><br>
+
+                {% else %}
+                    {{ avail[i][0][0] }} - {{ avail[i][1][0] }} <br><br>
+                {% endif %}
+        </div>
+    </a>
+    {% endfor %}
     
 </body>
 </html>

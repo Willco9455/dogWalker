@@ -1,0 +1,12 @@
+a {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    background-color: wheat;
+    width: max-content;
+    padding: 5px 10px;
+    margin-bottom: 20px;
+    text-decoration: none;
+    color: black;
+    border-radius: 10px;
+}

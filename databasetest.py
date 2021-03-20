@@ -59,21 +59,30 @@ class dbClass:
         conn.commit()
         conn.close()
 
-    ## this method will take in the usrId of any user whithin the database and will 
+    ''' this method will take in the usrId and will return the availability of that user in the form of an array
+               Monday               Tuesday            Wednesday
+        [startTime, endTime],[startTime, endTime],[startTime, endTime] , .....etc]
+        time will be ['none', 'none'] if there is no record of availability
+    '''
     def getAvail(self, usrId):
+        # List of all the days that wil lbe looped throug later 
         days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
+        # Connects to the database 
         conn = sqlite3.connect('test.db')
         c = conn.cursor()
+        # Empty availability array that will be fileld and returned from the method
         avail = []
+        # Loops through all the days
         for i in days:
+            # For each day attempt to fetch a record from the database
             try:
                 c.execute(f'select * FROM availability WHERE usrId = {usrId} AND day = "{i}"')
                 data = c.fetchall() 
                 avail.append([[data[0][2]],[data[0][3]]])
+            # If there is no record add ['none', 'none'] for that day
             except:
                 avail.append(['none', 'none'])
-        
-        print(avail)
+        # Return the avail array from the method
         return(avail)
 
     # Deletes record with the usrId and day that are passwd into the function if there is no match nothing will happen
@@ -92,10 +101,10 @@ class dbClass:
         conn.commit()
         conn.close()
 
-    def show(self):
+    def showAvil(self, ursIf):
         conn = sqlite3.connect('test.db')
         c = conn.cursor() 
-        c.execute('select * FROM availability WHERE usrId = 5 ')
+        c.execute(f'select * FROM availability WHERE usrId = {usrId} ')
         data = c.fetchall()
         print(data)
         conn.commit()

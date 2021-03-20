@@ -211,7 +211,20 @@ class user:
         self.fName = details[3]
         self.lName = details[4]
 
-# db = dbClass()
+    def getAvail(self): 
+        avail = db.getAvail(self.usrId)
+        print(avail)
+        return avail
+        
+    def addAvail(self, day, startTime, endTime):
+        db.addAvail(self.usrId, day, startTime, endTime)
+    
+
+
+db = dbClass()
+print(db.getAvail(2))
+# db.addAvail(2, 'tuesday', '08:00', '18:00')
+
 # while True: 
 #     inp = input(': ')
 #     if inp == 'clear':
