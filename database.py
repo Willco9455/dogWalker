@@ -228,9 +228,9 @@ class user:
 # print(db.getAvail(2))
 # db.addAvail(2, 'tuesday', '08:00', '18:00')
 
-# while True: 
-#     inp = input(': ')
-#     if inp == 'clear':
-#         db.clrTbl()
-#     elif inp == 'show':
-#         print(db.search())
+while True: 
+    inp = input(': ')
+    if inp == 'clear':
+        db.clrTbl()
+    elif inp == 'show':
+        print(db.search())
