@@ -20,7 +20,6 @@ app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 def route():
     try:
         savedId = session['usrId']
-        print(savedId)
         return redirect(url_for('home'))
     except:
         return redirect(url_for('login'))
@@ -104,13 +103,22 @@ def availability():
 def editAvail(day):
     # Once the edit button on the html form has been pressed run this
     if request.method == "POST":
-        # Gets the variables from the html form that the user entered
-        startTime = request.form['startTime']
-        endTime = request.form['endTime']
         # creates the user object for the user logged in 
         usrObj = user(session['usrId'])
-        # uses the addAvail mehod for the user to add the entered availability into the database
-        usrObj.addAvail(day, str(startTime), str(endTime))
+
+        ## First try to get the data from the updating time form but if that fails it means that the user has 
+        # clicked the not availabile button and so the except code will run if that happens  
+        try:
+            # If the user has filled in the edit time form then 
+            # Gets the variables from the html form that the user entered
+            startTime = request.form['startTime']
+            endTime = request.form['endTime']
+            # uses the addAvail mehod for the user to add the entered availability into the database
+            usrObj.addAvail(day, str(startTime), str(endTime))
+        except:
+            # If the user has clicked the not availabile button
+            request.form['notAvail']
+            usrObj.delAvai(day)
         # Redirect back to the availability page
         return redirect(url_for('availability'))
     # Before the button is pressed just render the template

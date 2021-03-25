@@ -29,3 +29,6 @@ class user:
     # Method that users the database function addAvail to add/replace availabilty for a specific day 
     def addAvail(self, day, startTime, endTime):
         db.addAvail(self.usrId, day, startTime, endTime)
+    
+    def delAvai(self, day):
+        db.delAvail(self.usrId, day)
