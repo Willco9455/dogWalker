@@ -12,17 +12,22 @@
     <form method="POST">
         <label>Email:</label>
         <!-- the username input has name usr which will be used when retriving this data  -->
-        <input type="text" name="email" placeholder="Email"><br> 
+        <input type="text" name="email" placeholder="Email" required><br> 
         <label >Password:</label>
         <!-- the password input has name pas which will be used when retriving this data  -->
-        <input type="password" name="pas1" placeholder="Password">
-        <input type="password" name="pas2" placeholder="Confirm Password"><br>
+        <input type="password" name="pas1" placeholder="Password" required>
+        <input type="password" name="pas2" placeholder="Confirm Password" required><br>
 
         <label >First Name:</label>
-        <input type="text" name="fName" placeholder="First Name"><br>
+        <input type="text" name="fName" placeholder="First Name" required><br>
         <label >First Name:</label>
-        <input type="text" name="lName" placeholder="Last Name"><br>
+        <input type="text" name="lName" placeholder="Last Name" required><br>
 
+        <p>Please select the type of account:</p>
+        <input type="radio" name="accType" value="walker">
+        <label for="walker">Walker</label>
+        <input type="radio" name="accType" value="owner">
+        <label for="owner">Owner</label><br>
         <input type="submit" value="Regiser" >
         <!-- This is where the variable "error" is passed into the function will appear  -->
         <p style="color: red;">{{ error }}</p>

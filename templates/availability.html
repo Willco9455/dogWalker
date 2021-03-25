@@ -9,21 +9,27 @@
 
 <body>
     <h2>Weekly Availability</h2>
+    <!-- grid conatiner for the day availabilites -->
     <div class="gridContainer">
+        <!-- Loops from 0 to 6 incrementing i each time -->
         {% for i in range(0,7) %}
-        <a class="link" href="editAvail/{{ days[i] }}">
-            <span style="font-weight: bold;">{{ (days[i]).capitalize() }}</span><br>
-
-            {% if avail[i][0] == 'none' %}
-                You have set no availability for <br>this day just kick back and relax<br><br>
-
-            {% else %}
-                {{ avail[i][0][0] }} - {{ avail[i][1][0] }} <br><br>
-            {% endif %}
-            
-        </a>
+            <a class="link" href="editAvail/{{ days[i] }}">
+                <!-- Displays the day for the current iteration as a heading -->
+                <span style="font-weight: bold;">{{ (days[i]) }}</span><br>
+                <!-- for the day that i is on if there is no availability set for that day then: -->
+                {% if avail[i][0] == 'none' %}
+                    You have set no availability for <br>this day just kick back and relax<br><br>
+                <!-- if there is availbability set for that day then -->
+                {% else %}
+                    <!-- display the start time to the end time -->
+                    {{ avail[i][0][0] }} - {{ avail[i][1][0] }} <br><br>
+                {% endif %}
+            </a>
         {% endfor %}
     </div>
     
+    
 </body>
 </html>
+
+

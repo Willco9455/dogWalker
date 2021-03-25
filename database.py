@@ -25,7 +25,8 @@ class dbClass:
             email text,
             password text,
             firstName text,
-            lastName text
+            lastName text,
+            accType text
             )''')
         except:
             pass
@@ -80,7 +81,7 @@ class dbClass:
     
     ## This method of the databse object will be used to add new users to the database   
     # the function takes the perameters of usr = the new users username, pas = the new users password 
-    def addUsr(self, email, pas, fName, lName):
+    def addUsr(self, email, pas, fName, lName, accType):
         ## Uses the search method of the database to find any users that already have the username passed 
         # into the method 
         srchRes = self.search('email', email)
@@ -92,8 +93,8 @@ class dbClass:
         #  to the database
         conn = sqlite3.connect('main.db')
         c = conn.cursor()
-        c.execute(f'''INSERT INTO users (email, password, firstName, lastName) 
-            VALUES ("{email}", "{pas}", "{fName}", "{lName}")
+        c.execute(f'''INSERT INTO users (email, password, firstName, lastName, accType) 
+            VALUES ("{email}", "{pas}", "{fName}", "{lName}", "{accType}")
             ''')
 
         conn.commit()
@@ -111,7 +112,8 @@ class dbClass:
             email text,
             password text,
             firstName text,
-            lastName text
+            lastName text,
+            accType text
             )''')
         conn.commit()
 
@@ -221,13 +223,12 @@ class user:
     # Method that users the database function addAvail to add/replace availabilty for a specific day 
     def addAvail(self, day, startTime, endTime):
         db.addAvail(self.usrId, day, startTime, endTime)
-    
 
 
-# db = dbClass()
+
 # print(db.getAvail(2))
 # db.addAvail(2, 'tuesday', '08:00', '18:00')
-
+# print(db.getAvail(2))
 # while True: 
 #     inp = input(': ')
 #     if inp == 'clear':

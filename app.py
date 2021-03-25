@@ -54,12 +54,13 @@ def register():
         pas2 = request.form['pas2']
         fName = request.form['fName']
         lName = request.form['lName']
+        accType = request.form['accType']
 
         result, err = registerAuth(email, pas1, pas2)
         # If statment that checks if the inputed data is valid 
         if result:
             # If the data is valid the new user is added to the datbase using the databases functions
-            db.addUsr(email, pas1, fName, lName)
+            db.addUsr(email, pas1, fName, lName, accType)
             # Then redirects to the login screen 
             return redirect(url_for('login'))
         else:
@@ -78,20 +79,30 @@ def home():
 
 @app.route('/availability')
 def availability():
-    # creates a user object 
+    # creates a user object for the usre currently logged in
     usrObj = user(session['usrId'])
-    avail = usrObj.getAvail()
+    # array of the different days that will be looped through within the template 
     days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
+    # gets the availabilty array for the user currently logged in   
+    avail = usrObj.getAvail()
+    # this route will render the availability.html tempalte and will have access to the days array within it
     return render_template('availability.html', avail=avail, days=days)
+
 
 @app.route('/editAvail/<day>', methods=['GET', 'POST'])
 def editAvail(day):
+    # Once the edit button on the html form has been pressed run this
     if request.method == "POST":
+        # Gets the variables from the html form that the user entered
         startTime = request.form['startTime']
         endTime = request.form['endTime']
+        # creates the user object for the user logged in 
         usrObj = user(session['usrId'])
+        # uses the addAvail mehod for the user to add the entered availability into the database
         usrObj.addAvail(day, str(startTime), str(endTime))
+        # Redirect back to the availability page
         return redirect(url_for('availability'))
+    # Before the button is pressed just render the template
     else:
         return render_template('editAvail.html', day=day)
 
