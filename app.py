@@ -7,6 +7,7 @@
 from flask import Flask, render_template, request, url_for, redirect, session
 from database import *
 from login import *
+from user import *
 
 app = Flask(__name__)        ## Sets the app 
 db = dbClass()
@@ -16,7 +17,17 @@ app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 ## This says that the function below will be run when the path "website/" is active the methods array is just flask 
 ## terminology that allows both different mehods to be used in that path(GET and POST)
 @app.route('/', methods=['GET', 'POST'])  
-def login():       
+def route():
+    try:
+        savedId = session['usrId']
+        print(savedId)
+        return redirect(url_for('home'))
+    except:
+        return redirect(url_for('login'))
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():   
     ## this will run when the submit button has been pressed becuase that makes the request method POST not GET
     if request.method == "POST":  
 

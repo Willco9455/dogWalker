@@ -10,7 +10,10 @@
 
 <body>
     <img src="{{ url_for('static', filename='profilePic.png') }}">
-    <p>Welcome, {{ usrObj.fName }} {{ usrObj.lName }}</p>
+    <p>Welcome, {{ usrObj.fName }} {{ usrObj.lName }}<br>
+        You are a {{ (usrObj.accType).capitalize() }}
+    </p>
+    {% if usrObj.accType == 'walker' %}
     <div>
         <p>
             <span style="font-weight: bold;">Change your availability</span><br>
@@ -18,4 +21,14 @@
             <a href="availability">Click Here</a>
         </p>
     </div>
+
+    {% else %}
+    <div>
+        <p>
+            <span style="font-weight: bold;">Dog Needs Walking</span><br>
+            Enter your poscode and we will show<br>you dog walkers in your local area<br>
+            <a href="">Click Here</a>
+        </p>
+    </div>
+    {% endif%}
 </body>

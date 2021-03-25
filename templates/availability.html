@@ -15,7 +15,7 @@
         {% for i in range(0,7) %}
             <a class="link" href="editAvail/{{ days[i] }}">
                 <!-- Displays the day for the current iteration as a heading -->
-                <span style="font-weight: bold;">{{ (days[i]) }}</span><br>
+                <span style="font-weight: bold;">{{ (days[i]).capitalize() }}</span><br>
                 <!-- for the day that i is on if there is no availability set for that day then: -->
                 {% if avail[i][0] == 'none' %}
                     You have set no availability for <br>this day just kick back and relax<br><br>
