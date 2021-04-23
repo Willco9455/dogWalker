@@ -13,6 +13,7 @@
     <p>Welcome, {{ usrObj.fName }} {{ usrObj.lName }}<br>
         You are a {{ (usrObj.accType).capitalize() }}
     </p>
+    <!-- WHEN SIGNED IN AS WALKER -->
     {% if usrObj.accType == 'walker' %}
     <div>
         <p>
@@ -21,13 +22,13 @@
             <a href="availability">Click Here</a>
         </p>
     </div>
-
+    <!-- WHEN SIGNED IN AS OWNER -->
     {% else %}
     <div>
         <p>
             <span style="font-weight: bold;">Dog Needs Walking</span><br>
             Enter your poscode and we will show<br>you dog walkers in your local area<br>
-            <a href="">Click Here</a>
+            <a href="search">Click Here</a>
         </p>
     </div>
     {% endif%}

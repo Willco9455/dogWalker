@@ -125,6 +125,10 @@ def editAvail(day):
     else:
         return render_template('editAvail.html', day=day)
 
+@app.route('/search')
+def search():
+    return render_template('search.html')
+
 
 if __name__ == '__main__':  ## This makes sure the app runs when the python file is ran 
     app.run(debug = True)   ## The debug = true turns the debug on so that when there is an syntax error the 
