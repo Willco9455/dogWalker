@@ -101,8 +101,8 @@ def getDay(date):
     # returnst the day that the date inputed falls on
     return dayNum
 
-print(search('TD40', '08:00', '09:00', '2021-05-03'))
-# print(getDay('2021-05-02'))
+print(search('LS29', '01:00', '09:00', '2021-05-03'))
+
 
 
 

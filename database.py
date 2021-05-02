@@ -44,6 +44,20 @@ class dbClass:
             )''')
         except:
             pass
+        
+        ## creates the booking table if it does not already exist 
+        try:
+            c.execute(''' CREATE TABLE booking (
+            ownerId integer,
+            walkerId integer,
+            date text,
+            day text,
+            startTime text,
+            endTime text,
+            PRIMARY KEY (ownerId, walkerId, date)
+            )''')
+        except:
+            pass
 
         ## closes connectrion to database
         conn.commit()
@@ -204,9 +218,61 @@ class dbClass:
         conn.commit()
         conn.close()
     
+#####################################################################################################################
+################################# START OF BOOKING FUNCTIONALITY ####################################################
+#####################################################################################################################
+    
+    def clrBooking(self):
+        conn = sqlite3.connect('main.db')
+        c = conn.cursor()
+        c.execute('DROP TABLE booking')
+        conn.commit()
+        c.execute(''' CREATE TABLE booking (
+            ownerId integer,
+            walkerId integer,
+            date text,
+            day text,
+            startTime text,
+            endTime text,
+            PRIMARY KEY (ownerId, walkerId, date)
+            )''')
+        conn.commit()
+
+        conn.close()
+
+    # Method that will add an avilability record for one day of one user if there is already a record 
+    # there it will replace it 
+    def addBooking(self, ownerId, walkerId, date, day, startTime, endTime):
+        ## connects to database 
+        conn = sqlite3.connect('main.db')
+        c = conn.cursor()
+
+        # Inserts the new data into the table
+        c.execute(f'''
+        INSERT INTO booking (ownerId, walkerId, date, day, startTime, endTime)
+        VALUES ({ownerId},{walkerId},"{date}","{day}","{startTime}","{endTime}")
+        ''')
+        conn.commit()
+        conn.close()
+    
+    def getWalkerBookings(self, walkerId, day):
+        ## connects to the database 
+        conn = sqlite3.connect('main.db')
+        c = conn.cursor()
+
+        # SQL query which will fetch the booksings for the walker
+        c.execute(f'SELECT * FROM booking WHERE walkerId="{walkerId}" AND day="{day}"')
+        data = c.fetchall()
+        return(data)
+
+        conn.commit()
+        conn.close()
 
 
-# db = dbClass()
+db = dbClass()
+# db.clrBooking()
+# db.addBooking(1,4,'2021-09-21', 'monday', '08:00', '09:00')
+print(db.getWalkerBookings(4, 'monday'))
 
 # db.clrTbl()
 # db.clrAvail()
