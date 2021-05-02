@@ -207,6 +207,7 @@ class dbClass:
 
 
 # db = dbClass()
+
 # db.clrTbl()
 # db.clrAvail()
 ## ADd the test set of data to the database
