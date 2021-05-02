@@ -9,5 +9,27 @@
 
 <body>
     <h1>Search</h1>
+    <!-- form for inputing the data for the search for a dog walker-->
+    <form method="POST">
+        
+        <!-- Post code input -->
+        <label>Post Code(<span style="font-style: italic;">just the start</span>):</label><br>
+        <input type="text" name="post" placeholder="e.g BR89" required><br> 
+        
+        <!-- date input -->
+        <label for="date">Date:</label>
+        <input type="date" id="date" name="date" min="2021-01-01"><br>
+       
+        <!-- start time input -->
+        <label for="startTime">Start Time:</label>
+        <input id="startTime" type="time" name="startTime" required><br>
+        
+        <!-- end time input -->
+        <label for="endTime">End Time:</label>
+        <input id="endTime" type="time" name="endTime" required><br>
+    
+        <!-- Search button  -->
+        <input type="submit" value="search">
+    </form>
 </body>
 </html>

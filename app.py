@@ -64,13 +64,14 @@ def register():
         pas2 = request.form['pas2']
         fName = request.form['fName']
         lName = request.form['lName']
+        post = request.form['post'].strip()
         accType = request.form['accType']
 
-        result, err = registerAuth(email, pas1, pas2)
+        result, err = registerAuth(email, pas1, pas2, post)
         # If statment that checks if the inputed data is valid 
         if result:
             # If the data is valid the new user is added to the datbase using the databases functions
-            db.addUsr(email, pas1, fName, lName, accType)
+            db.addUsr(email, pas1, fName, lName, accType, post)
             # Then redirects to the login screen 
             return redirect(url_for('login'))
         else:
@@ -125,9 +126,14 @@ def editAvail(day):
     else:
         return render_template('editAvail.html', day=day)
 
-@app.route('/search')
+
+@app.route('/search', methods=['GET', 'POST'])
 def search():
-    return render_template('search.html')
+    if request.method == 'POST':
+        print(request.form['date'])
+        return(f'{request.form}')
+    else:
+        return render_template('search.html')
 
 
 if __name__ == '__main__':  ## This makes sure the app runs when the python file is ran 

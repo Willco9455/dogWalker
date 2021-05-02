@@ -25,7 +25,7 @@ def usrAuth(email, pas):
         return False
 
 ## Function for register screen that verifies that all the details entered into the form are valid 
-def registerAuth(email, pas1, pas2):
+def registerAuth(email, pas1, pas2, post):
     ## This section will check if the username is already taken or not 
     reslt = db.search('email', email)
     if len(reslt) > 0: 
@@ -60,6 +60,14 @@ def registerAuth(email, pas1, pas2):
         err  = 'Password does not include any numbers'
         return False, err
 
+     # gets rid of any whitespace that might be in the string
+    post = post.strip()
+    # checks the length of the postcode is between 2 and 4
+    if (2 <= len(post) <= 4):
+        pass
+    else:
+        err = 'The postcode you entered is invalid'
+        return False, err
 
     ## This section happens when all register criteria are fit
     print('valid') ## temporaty for testing purposes 
@@ -67,4 +75,16 @@ def registerAuth(email, pas1, pas2):
     
 #           username  password1  password2
 # registerAuth('Username', 'Password', 'Password1')
+
+def postCodeAuth(post): 
+    # gets rid of any whitespace that might be in the string
+    post = post.strip()
+    # checks the length of the postcode is between 2 and 4
+    if (2 <= len(post) <= 4):
+        return True
+    else:
+        return False
+
+
+print(str(postCodeAuth('LS29 ')))
 

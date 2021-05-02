@@ -27,7 +27,8 @@ class dbClass:
             password text,
             firstName text,
             lastName text,
-            accType text
+            accType text,
+            postcode text
             )''')
         except:
             pass
@@ -82,7 +83,7 @@ class dbClass:
     
     ## This method of the databse object will be used to add new users to the database   
     # the function takes the perameters of usr = the new users username, pas = the new users password 
-    def addUsr(self, email, pas, fName, lName, accType):
+    def addUsr(self, email, pas, fName, lName, accType, post):
         ## Uses the search method of the database to find any users that already have the username passed 
         # into the method 
         srchRes = self.search('email', email)
@@ -94,8 +95,8 @@ class dbClass:
         #  to the database
         conn = sqlite3.connect('main.db')
         c = conn.cursor()
-        c.execute(f'''INSERT INTO users (email, password, firstName, lastName, accType) 
-            VALUES ("{email}", "{pas}", "{fName}", "{lName}", "{accType}")
+        c.execute(f'''INSERT INTO users (email, password, firstName, lastName, accType, postcode) 
+            VALUES ("{email}", "{pas}", "{fName}", "{lName}", "{accType}", "{post}")
             ''')
 
         conn.commit()
@@ -114,7 +115,8 @@ class dbClass:
             password text,
             firstName text,
             lastName text,
-            accType text
+            accType text,
+            postcode text
             )''')
         conn.commit()
 
@@ -199,15 +201,29 @@ class dbClass:
         conn.close()
 
 
-# db = dbClass()
+db = dbClass()
+# db.clrTbl()
+# print(db.search())
+# db.clrAvail()
+## ADd the test set of data to the database
+# db.addUsr('johnsnow@gmail.com','password1','John','Snow','walker','LS29')
+# db.addUsr('jamesright@gmail.com','password1','James','Right','owner','TD40')
+# db.addUsr('robertsmith@gmail.com','password1','Robert','Smith','owner','LS29')
+# db.addUsr('michaelbrown@gmail.com','password1','Michael','Brown','walker','TD40')
+# db.addUsr('davidjones@gmail.com','password1','David','Jones','walker','LS29')
+# db.addUsr('richarddavis@gmail.com','password1','Richard','Davis','walker','LS29')
 
-
-# print(db.getAvail(2))
-# db.addAvail(2, 'tuesday', '08:00', '18:00')
-# print(db.getAvail(2))
-# while True: 
-#     inp = input(': ')
-#     if inp == 'clear':
-#         db.clrTbl()
-#     elif inp == 'show':
-#         print(db.search())
+# db.addAvail(1,'monday','08:00','17:00')
+# db.addAvail(1,'tuesday','08:00','17:00')
+# db.addAvail(1,'wednesday','09:30','17:00')
+# db.addAvail(1,'thursday','08:00','12:00')
+# db.addAvail(1,'friday','08:00','17:00')
+# db.addAvail(4,'monday','06:00','15:00')
+# db.addAvail(4,'tuesday','06:00','15:00')
+# db.addAvail(4,'friday','06:00','15:00')
+# db.addAvail(4,'saturday','06:00','15:00')
+# db.addAvail(5,'monday','07:00','16:00')
+# db.addAvail(5,'tuesday','07:00','16:00')
+# db.addAvail(5,'wednesday','07:00','16:00')
+# db.addAvail(6,'saturday','12:00','18:00')
+# db.addAvail(6,'sunday','12:00','18:00')
