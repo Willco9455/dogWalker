@@ -69,6 +69,10 @@ class dbClass:
         elif col == "usrId":
             c.execute(f'SELECT * FROM users WHERE usrId="{search}"')
             data = c.fetchall() 
+        # if collum entered is postcode then an array of users with a matching post code will be returned
+        elif col == "postcode":
+            c.execute(f'SELECT * FROM users WHERE postcode="{search}"')
+            data = c.fetchall() 
         ## If no peramerters are passed into the function then all records are sotred in data variable 
         else:
             c.execute(f'SELECT * FROM users')
@@ -199,11 +203,11 @@ class dbClass:
         
         conn.commit()
         conn.close()
+    
 
 
-db = dbClass()
+# db = dbClass()
 # db.clrTbl()
-# print(db.search())
 # db.clrAvail()
 ## ADd the test set of data to the database
 # db.addUsr('johnsnow@gmail.com','password1','John','Snow','walker','LS29')

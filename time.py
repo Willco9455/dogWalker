@@ -1,9 +1,12 @@
 import datetime 
-t = datetime.time(1,1,00)
-d = datetime.datetime(2021, 4, 27)
+# t = datetime.time(1,1,00)
+# d = datetime.datetime(2021, 4, 27)
 
-seconds = datetime.timedelta(hours=t.hour, minutes=t.minute,seconds=t.second).total_seconds()
-print(seconds)
 
-day = d.weekday()
-print(day)
+# day = d.weekday()
+# print(day)
+
+
+        
+t = time('23:59')
+print(t.getSecPastMid())

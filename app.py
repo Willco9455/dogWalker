@@ -130,7 +130,7 @@ def editAvail(day):
 @app.route('/search', methods=['GET', 'POST'])
 def search():
     if request.method == 'POST':
-        print(request.form['date'])
+        print(request.form['startTime'])
         return(f'{request.form}')
     else:
         return render_template('search.html')
