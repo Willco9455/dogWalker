@@ -8,6 +8,7 @@ from flask import Flask, render_template, request, url_for, redirect, session
 from database import *
 from login import *
 from user import *
+from search import search
 
 app = Flask(__name__)        ## Sets the app 
 db = dbClass()
@@ -128,12 +129,17 @@ def editAvail(day):
 
 
 @app.route('/search', methods=['GET', 'POST'])
-def search():
+def srchRoute():
     if request.method == 'POST':
-        
-        return(f'{request.form}')
+        post = request.form['post'].strip().upper()
+        date = request.form['date']
+        startTime = request.form['startTime']
+        endTime = request.form['endTime']
+        available = search(post, date, startTime, endTime)
+        return render_template('results.html', available=available)
     else:
         return render_template('search.html')
+
 
 
 if __name__ == '__main__':  ## This makes sure the app runs when the python file is ran 

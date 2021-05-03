@@ -10,7 +10,10 @@
 <body>
     <h1>Results</h1>
 
-
-
+    {% for i in available %}
+    <!-- loops through available users each is an array of format 
+    [usrId, email, pass, firstName, LastName, accType, postCode] -->
+        Name: {{ i[3] }} {{ i[4] }} <br>
+    {% endfor %}
     
 </body>
