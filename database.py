@@ -240,8 +240,7 @@ class dbClass:
 
         conn.close()
 
-    # Method that will add an avilability record for one day of one user if there is already a record 
-    # there it will replace it 
+    # Method takes in infomation about a booking and adds it to the database
     def addBooking(self, ownerId, walkerId, date, day, startTime, endTime):
         ## connects to database 
         conn = sqlite3.connect('main.db')
@@ -255,13 +254,14 @@ class dbClass:
         conn.commit()
         conn.close()
     
-    def getWalkerBookings(self, walkerId, day):
-        ## connects to the database 
+    # Takes the walkerId and the day of the booking and will return all the bookings for that day
+    def getWalkerBookings(self, walkerId, date):
+        ## Connects to the database 
         conn = sqlite3.connect('main.db')
         c = conn.cursor()
 
         # SQL query which will fetch the booksings for the walker
-        c.execute(f'SELECT * FROM booking WHERE walkerId="{walkerId}" AND day="{day}"')
+        c.execute(f'SELECT * FROM booking WHERE walkerId="{walkerId}" AND date="{date}"')
         data = c.fetchall()
         return(data)
 
@@ -271,12 +271,20 @@ class dbClass:
 
 db = dbClass()
 # db.clrBooking()
-# db.addBooking(1,4,'2021-09-21', 'monday', '08:00', '09:00')
-print(db.getWalkerBookings(4, 'monday'))
+# print(db.getWalkerBookings(1, '2021-05-04'))
+
+# db.addBooking(2,1,'2021-05-03','monday','09:00','10:00')
+# db.addBooking(2,1,'2021-05-04','tuesday','13:00','14:00')
+# db.addBooking(3,4,'2021-05-03','monday','07:00','08:00')
+
+
+
 
 # db.clrTbl()
 # db.clrAvail()
-## ADd the test set of data to the database
+
+
+## Add the test set of data to the database
 # db.addUsr('johnsnow@gmail.com','password1','John','Snow','walker','LS29')
 # db.addUsr('jamesright@gmail.com','password1','James','Right','owner','TD40')
 # db.addUsr('robertsmith@gmail.com','password1','Robert','Smith','owner','LS29')
