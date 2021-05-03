@@ -42,7 +42,7 @@ def search(post, date, startTime, endTime):
     # Turns start and end time into time objects 
     startTime = time(startTime).getSecPastMid()
     endTime = time(endTime).getSecPastMid()
-    dayNum = getDay(date)
+    dayNum = getDayNum(date)
     # avaible variable becomes an array of objects with the
     # post code passed into the function (post)
     filt1 = db.search('postcode', post)
@@ -100,9 +100,7 @@ def search(post, date, startTime, endTime):
 
 
 # Take date in as a string in formate -> 'YYYY-MM-DD'
-def getDay(date):
-    # array of days will be used to turn the day number into a day
-    days = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday']
+def getDayNum(date):
     # turns the date string into an array of format -> [YYYY, MM, DD]
     dateAry = date.split('-')
     # loops through the different part of the array and removes the leading 0's and turns it into an integer
@@ -119,7 +117,11 @@ def getDay(date):
     # returnst the day that the date inputed falls on
     return dayNum
 
-
+def getDay(date):
+    # array of days will be used to turn the day number into a day
+    days = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday']
+    
+    return days[getDayNum(date)]
 
 
 

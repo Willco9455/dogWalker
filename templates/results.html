@@ -14,14 +14,15 @@
     <!-- checks if the length of teh available array is 0 and if it is then displays a message -->
     {% if (available|length) == 0 %}
         <p>Oh no, were sorry but nobody is available to walk your dog then! :(</p>
-        
+
     <!-- if available is not emplty then show the available users -->
     {% else %}
         <!-- loops through available users each is an array of format 
         [usrId, email, pass, firstName, LastName, accType, postCode] -->
         {% for i in available %}
-            <a href="">
-                Name: {{ i[3] }} {{ i[4] }} <br>
+            <a href="confirm/{{ i[0] }}">
+                <span style="font-weight: bold;">{{ i[3] }} {{ i[4] }}</span> <br>
+                {{ startTime }} - {{ endTime }}
             </a>
         {% endfor %}
     {% endif %}

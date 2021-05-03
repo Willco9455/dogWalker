@@ -8,7 +8,7 @@ from flask import Flask, render_template, request, url_for, redirect, session
 from database import *
 from validation import *
 from user import *
-from search import search
+from search import *
 from datetime import date as d
 
 app = Flask(__name__)        ## Sets the app 
@@ -115,6 +115,8 @@ def editAvail(day):
             # Gets the variables from the html form that the user entered
             startTime = request.form['startTime']
             endTime = request.form['endTime']
+
+            # checks if the time range entered is valid 
             if not (timeVal(startTime, endTime)):
                 err = 'The time range you entered was not valid'
                 return render_template('editAvail.html', day=day, err=err)
@@ -138,6 +140,7 @@ def srchRoute():
         # Gets all the variables from the form and saves them 
         post = request.form['post'].strip().upper()
         date = request.form['date']
+        day = getDay(date)
         startTime = request.form['startTime']
         endTime = request.form['endTime']
 
@@ -151,17 +154,36 @@ def srchRoute():
             err = 'The post code you entered is not valid'
             return render_template('search.html', today=d.today(), err=err)
 
+        # saves booking infromation to a session variable called bookingData
+        session['bookingData'] = [session['usrId'], date, day, startTime, endTime]
+
         # uses the search fucntion already created to get all walkers avaialbe for walking
         available = search(post, date, startTime, endTime)
 
         # loades the results template and passess in the array of avaiabel users so that data can be 
         # used within the template 
-        return render_template('results.html', available=available)
+        return render_template('results.html', available=available, startTime=startTime, endTime=endTime)
     # else runs for when the /search route is navigated to normaly not POST method
     else:
         return render_template('search.html', today=d.today())
 
 
+@app.route('/confirm/<walkerId>', methods=['GET', 'POST'])
+def confirm(walkerId):
+    walker = user(walkerId)
+    # Gets the booking data in the format -->
+    # [ownerId,date,day,startTime,endTime]
+    bookingData = session['bookingData']
+    if request.method == 'POST':
+        db.addBooking(bookingData[0], walker.usrId, bookingData[1], bookingData[2], bookingData[3], bookingData[4])
+        return redirect(url_for('home'))
+    else:
+        return render_template('confirm.html', walker=walker, bookingData=session['bookingData'])
+    
+@app.route('/bookings')
+def bookings():
+    bookings = db.getOwnerBookings(session['usrId'])
+    return f'{bookings}'
 
 if __name__ == '__main__':  ## This makes sure the app runs when the python file is ran 
     app.run(debug = True)   ## The debug = true turns the debug on so that when there is an syntax error the 

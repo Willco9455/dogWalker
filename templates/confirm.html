@@ -1,0 +1,24 @@
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- set the title of the web page -->
+    <title>Dog Walker - Search</title>
+     <!-- add style  to the site -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+
+<body>
+    <!-- Passed Variables
+    walkerId = the id of the walker that was clicked form the search results
+    bookingsData = array of data from the search format [ownerId,date,day,startTime,endTime]
+    -->
+    <h1>Booking Confirmation</h1>
+    <p>
+        <span style="font-weight: bold;">Walk Time: </span>{{ bookingData[3] }} - {{ bookingData[4] }} <br>
+        <span style="font-weight: bold;">Day: </span> {{ bookingData[2].capitalize() }} <br>
+        <span style="font-weight: bold;">Date: </span> {{ bookingData[1] }} <br>
+        <span style="font-weight: bold;">Walker: </span> {{ walker.fName }} {{ walker.lName }} <br>
+    </p>
+    <form method="POST">
+        <input type="submit" value="CONFIRM"><br>
+    </form>
+</body>

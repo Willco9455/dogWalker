@@ -267,6 +267,20 @@ class dbClass:
 
         conn.commit()
         conn.close()
+    
+    def getOwnerBookings(self, ownerId):
+        ## Connects to the database 
+        conn = sqlite3.connect('main.db')
+        c = conn.cursor()
+
+        # SQL query which will fetch the booksings for the walker
+        c.execute(f'SELECT * FROM booking WHERE ownerId="{ownerId}"')
+        data = c.fetchall()
+        return(data)
+
+        conn.commit()
+        conn.close()
+
 
 
 db = dbClass()
