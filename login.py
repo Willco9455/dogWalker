@@ -60,14 +60,11 @@ def registerAuth(email, pas1, pas2, post):
         err  = 'Password does not include any numbers'
         return False, err
 
-     # gets rid of any whitespace that might be in the string
-    post = post.strip()
-    # checks the length of the postcode is between 2 and 4
-    if (2 <= len(post) <= 4):
-        pass
-    else:
-        err = 'The postcode you entered is invalid'
+    # checks if post code is valid
+    if not postCodeAuth(post):
+        err = 'PostCode was invalid'
         return False, err
+    
 
     ## This section happens when all register criteria are fit
     print('valid') ## temporaty for testing purposes 
@@ -86,5 +83,5 @@ def postCodeAuth(post):
         return False
 
 
-print(str(postCodeAuth('LS29 ')))
+
 

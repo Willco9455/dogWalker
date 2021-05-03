@@ -14,11 +14,11 @@
         
         <!-- Post code input -->
         <label>Post Code(<span style="font-style: italic;">just the start</span>):</label><br>
-        <input type="text" name="post" placeholder="e.g BR89" required><br> 
+        <input type="text" name="post" placeholder="e.g BR89" value="{{ request.form['post'] }}" required><br> 
         
         <!-- date input -->
         <label for="date">Date:</label>
-        <input type="date" id="date" name="date" min="2021-01-01"><br>
+        <input type="date" id="date" name="date" min="{{ today }}" value="{{ request.form['date'] }}"><br>
        
         <!-- start time input -->
         <label for="startTime">Start Time:</label>
@@ -31,5 +31,6 @@
         <!-- Search button  -->
         <input type="submit" value="search">
     </form>
+    <p style="color: red;">{{ err }}</p>
 </body>
 </html>

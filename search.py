@@ -1,6 +1,7 @@
 from database import *
 from user import *
 import datetime
+
 db = dbClass()
 
 class time:
@@ -114,12 +115,11 @@ def getDay(date):
     # uses the datetime library to get the day from the date
     d = datetime.datetime(dateAry[0], dateAry[1], dateAry[2])
     dayNum = d.weekday()
-    # day = days[dayNum]
 
     # returnst the day that the date inputed falls on
     return dayNum
 
-# print(search('LS29', '2021-05-04', '14:00', '15:00'))
+
 
 
 

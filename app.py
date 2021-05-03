@@ -8,7 +8,8 @@ from flask import Flask, render_template, request, url_for, redirect, session
 from database import *
 from login import *
 from user import *
-from search import search
+from search import search, time
+from datetime import date as d
 
 app = Flask(__name__)        ## Sets the app 
 db = dbClass()
@@ -130,15 +131,29 @@ def editAvail(day):
 
 @app.route('/search', methods=['GET', 'POST'])
 def srchRoute():
+    # If statment runs after the search button is clicked on the search page
     if request.method == 'POST':
+        # Gets all the variables from the form and saves them 
         post = request.form['post'].strip().upper()
         date = request.form['date']
         startTime = request.form['startTime']
         endTime = request.form['endTime']
+
+        startSecPastMid = time(startTime).getSecPastMid()
+        endSecPastMid = time(endTime).getSecPastMid()
+        if startSecPastMid >= endSecPastMid:
+            err = 'You have entered an invalid time range for your walk'
+            return render_template('search.html', err=err)
+
+        # uses the search fucntion already created to get all walkers avaialbe for walking
         available = search(post, date, startTime, endTime)
-        return render_template('results.html', available=available)
+
+        # loades the results template and passess in the array of avaiabel users so that data can be 
+        # used within the template 
+        return render_template('results.html', today=d.today(), available=available)
+    # else runs for when the /search route is navigated to normaly not POST method
     else:
-        return render_template('search.html')
+        return render_template('search.html', today=d.today())
 
 
 
