@@ -184,7 +184,7 @@ def confirm(walkerId):
 def bookings(accType):
     if accType == 'Owner':
         bookings = db.getOwnerBookings(session['usrId'])
-        return render_template('bookings.html', bookings=bookings)
+        return render_template('bookings.html', bookings=bookings, user=user)
     else:
         return 'feature not yet implemented'
 

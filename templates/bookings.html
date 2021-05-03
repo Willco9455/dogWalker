@@ -4,10 +4,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dog Walker - Availability</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bookings.css') }}">
 </head>
 
 <body>
+    <!-- loops through bookings in the format -> [ownerId, walkerId, date, day, startTime, endTime] -->
     {% for i in bookings %}
-    <p> {{ i }}</p>
+    <p> 
+        <span style="font-weight: bold;"> Walker: </span> {{ user(i[0]).fName }} {{ user(i[0]).lName }} <br>
+        <span style="font-weight: bold;"> Time: </span> {{ i[4] }} - {{ i[5] }} <br>
+        <span style="font-weight: bold;"> Day: </span> {{ i[3].capitalize() }} <br>
+        <span style="font-weight: bold;"> Date: </span> {{ i[2] }} <br>
+    </p>
     {% endfor %}
 </body>
