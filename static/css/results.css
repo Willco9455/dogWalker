@@ -1,0 +1,21 @@
+
+a {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    background-color: lightblue;
+    border: 3px solid black;
+    width: 290px;
+    padding: 5px 10px;
+    margin-bottom: 20px;
+    text-decoration: none;
+    color: black;
+    border-radius: 10px;
+}
+
+@media only screen and (max-width: 600px) {
+
+    a {
+        width: 95%;
+    }
+}

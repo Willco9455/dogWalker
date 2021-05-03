@@ -5,15 +5,19 @@
     <title>Dog Walker - Search</title>
      <!-- add style  to the site -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/results.css') }}">
 </head>
 
 <body>
     <h1>Results</h1>
-
-    {% for i in available %}
+    
     <!-- loops through available users each is an array of format 
     [usrId, email, pass, firstName, LastName, accType, postCode] -->
-        Name: {{ i[3] }} {{ i[4] }} <br>
+    {% for i in available %}
+        <a class="link" href="">
+            Name: {{ i[3] }} {{ i[4] }} <br>
+        </a>
     {% endfor %}
-    
+
+
 </body>
