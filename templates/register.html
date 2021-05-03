@@ -12,25 +12,25 @@
     <form method="POST">
         <label>Email:</label>
         <!-- the username input has name usr which will be used when retriving this data  -->
-        <input type="text" name="email" placeholder="Email" required><br> 
+        <input type="text" name="email" placeholder="Email" value="{{request.form['email']}}" required><br> 
         <label >Password:</label>
         <!-- the password input has name pas which will be used when retriving this data  -->
-        <input type="password" name="pas1" placeholder="Password" required>
-        <input type="password" name="pas2" placeholder="Confirm Password" required><br>
+        <input type="password" name="pas1" placeholder="Password" value="{{request.form['pas1']}}" required>
+        <input type="password" name="pas2" placeholder="Confirm Password" value="{{request.form['pas2']}}" required><br>
 
         <label >First Name:</label>
-        <input type="text" name="fName" placeholder="First Name" required><br>
-        <label >First Name:</label>
-        <input type="text" name="lName" placeholder="Last Name" required><br>
+        <input type="text" name="fName" placeholder="First Name" value="{{request.form['fName']}}" required><br>
+        <label >Last Name:</label>
+        <input type="text" name="lName" placeholder="Last Name" value="{{request.form['lName']}}" required><br>
 
         <!-- Post code input -->
         <label>Post Code(<span style="font-style: italic;">just the start</span>):</label><br>
-        <input type="text" name="post" placeholder="e.g BR89" required><br> 
+        <input type="text" name="post" placeholder="e.g BR89" value="{{request.form['post']}}" required><br> 
 
         <p>Please select the type of account:</p>
-        <input type="radio" name="accType" value="walker">
+        <input type="radio" name="accType" value="walker" required>
         <label for="walker">Walker</label>
-        <input type="radio" name="accType" value="owner">
+        <input type="radio" name="accType" value="owner" required>
         <label for="owner">Owner</label><br>
         <input type="submit" value="Regiser" >
         <!-- This is where the variable "error" is passed into the function will appear  -->

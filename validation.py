@@ -1,4 +1,5 @@
 from database import dbClass
+from search import time 
 db = dbClass()
 
 ## Takes input of a username and password and will return true if they are valid and false if not. Used for the 
@@ -61,7 +62,7 @@ def registerAuth(email, pas1, pas2, post):
         return False, err
 
     # checks if post code is valid
-    if not postCodeAuth(post):
+    if not postcodeVal(post):
         err = 'PostCode was invalid'
         return False, err
     
@@ -70,10 +71,8 @@ def registerAuth(email, pas1, pas2, post):
     print('valid') ## temporaty for testing purposes 
     return True, '' 
     
-#           username  password1  password2
-# registerAuth('Username', 'Password', 'Password1')
-
-def postCodeAuth(post): 
+# Takes in a post code and will return True if its valid and false if its Not
+def postcodeVal(post): 
     # gets rid of any whitespace that might be in the string
     post = post.strip()
     # checks the length of the postcode is between 2 and 4
@@ -82,6 +81,20 @@ def postCodeAuth(post):
     else:
         return False
 
+# Takes in a start time and end time retunrs True if they are valid and False if
+def timeVal(startTime, endTime):
+    # Uses the time object to convert the times into seconds past midnight
+    startSecPastMid = time(startTime).getSecPastMid()
+    endSecPastMid = time(endTime).getSecPastMid()
+
+    # compares the start and end times and if they are invalid the template will be reloaded 
+    # along with an error message
+    if startSecPastMid >= endSecPastMid:
+        # This is the error message that will be displayed 
+        return False
+    else: 
+        return True
 
 
-
+#           username  password1  password2
+# registerAuth('Username', 'Password', 'Password1')

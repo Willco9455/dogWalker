@@ -17,10 +17,10 @@
     <form method="POST">
         <label>Email:</label><br>
         <!-- the username input has name usr which will be used when retriving this data  -->
-        <input type="text" name="email"><br> 
+        <input type="text" name="email" value="{{request.form['email']}}"><br> 
         <label>Password:</label><br>
         <!-- the password input has name pas which will be used when retriving this data  -->
-        <input type="password" name="pas"><br>
+        <input type="password" name="pas" value="{{request.form['pas']}}"><br>
         <input type="submit" value="LOG IN">
         <p style="color: red;">{{ error }}</p>
     </form>

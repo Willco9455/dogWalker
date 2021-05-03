@@ -6,9 +6,9 @@
 '''
 from flask import Flask, render_template, request, url_for, redirect, session
 from database import *
-from login import *
+from validation import *
 from user import *
-from search import search, time
+from search import search
 from datetime import date as d
 
 app = Flask(__name__)        ## Sets the app 
@@ -89,7 +89,6 @@ def home():
     usrObj = user(session['usrId'])
     return render_template('home.html', usrObj=usrObj)
 
-
 @app.route('/availability')
 def availability():
     # creates a user object for the usre currently logged in
@@ -116,6 +115,9 @@ def editAvail(day):
             # Gets the variables from the html form that the user entered
             startTime = request.form['startTime']
             endTime = request.form['endTime']
+            if not (timeVal(startTime, endTime)):
+                err = 'The time range you entered was not valid'
+                return render_template('editAvail.html', day=day, err=err)
             # uses the addAvail mehod for the user to add the entered availability into the database
             usrObj.addAvail(day, str(startTime), str(endTime))
         except:
@@ -139,18 +141,22 @@ def srchRoute():
         startTime = request.form['startTime']
         endTime = request.form['endTime']
 
-        startSecPastMid = time(startTime).getSecPastMid()
-        endSecPastMid = time(endTime).getSecPastMid()
-        if startSecPastMid >= endSecPastMid:
+        # uses the timeVal from the validation file to check if the start and end times are valid
+        if not (timeVal(startTime, endTime)):
             err = 'You have entered an invalid time range for your walk'
-            return render_template('search.html', err=err)
+            return render_template('search.html', today=d.today(), err=err)
+
+        # Uses the poscodeVal function that returns False if the post code is invalid
+        elif not (postcodeVal(post)):
+            err = 'The post code you entered is not valid'
+            return render_template('search.html', today=d.today(), err=err)
 
         # uses the search fucntion already created to get all walkers avaialbe for walking
         available = search(post, date, startTime, endTime)
 
         # loades the results template and passess in the array of avaiabel users so that data can be 
         # used within the template 
-        return render_template('results.html', today=d.today(), available=available)
+        return render_template('results.html', available=available)
     # else runs for when the /search route is navigated to normaly not POST method
     else:
         return render_template('search.html', today=d.today())

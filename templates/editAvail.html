@@ -10,9 +10,9 @@
     <h1>{{ day.capitalize() }}</h1>
     <form method="POST">
         <label for="startTime">Start Time:</label>
-        <input id="startTime" type="time" name="startTime" required><br>
+        <input id="startTime" type="time" name="startTime" value="{{request.form['startTime']}}" required><br>
         <label for="endTime">End Time:</label>
-        <input id="endTime" type="time" name="endTime" required><br>
+        <input id="endTime" type="time" name="endTime" value="{{request.form['endTime']}}" required><br>
         <input type="submit" value="Edit"><br>
     </form>
     <br>
@@ -21,5 +21,5 @@
         <label for="notAvaialbe">Or select not Available</label><br>
         <input type="submit" value="Not Availabile"><br>
     </form>
-
+    <p style="color: red;">{{ err }}</p>
 </body>
