@@ -37,7 +37,7 @@ class time:
         return(self.secPastMid)
 
 # returns array of valid user objects with 
-def search(post, startTime, endTime, date):
+def search(post, date, startTime, endTime):
     # Turns start and end time into time objects 
     startTime = time(startTime).getSecPastMid()
     endTime = time(endTime).getSecPastMid()
@@ -73,10 +73,28 @@ def search(post, startTime, endTime, date):
         if (startTime < usrStart) or (endTime > usrEnd):
             continue # move onto next i
         
-        # if the user has got past these checks then they will be added to the available array
-        availabile.append(filt2[i]) 
+        # sets flag that will become true if the walker has a booking that overlaps with the search
+        flag = False
+        # Gets the bookings array corrosponding to the walker on the date of the search
+        bookings = db.getWalkerBookings(usrObj.usrId, date)
 
-    # returns an array of all the users that are available
+        # Loops through bookings each booking is an array of the format 
+        # [ownerId, walkerId, date, day, starTime, endTime]
+        for j in bookings:
+            # Gets the start and end times of the bookings as seconds past midnight
+            bookStart = time(j[4]).getSecPastMid()
+            bookEnd = time(j[5]).getSecPastMid()
+            if ((startTime < bookStart) and (endTime < bookStart)) or (startTime > bookEnd):
+                continue
+            else:
+                flag = True
+                print(f'booking {j} overlaps with the search')
+        if flag == False:
+            # if the user has got past these checks then they will be added to the available array
+            availabile.append(filt2[i]) 
+
+
+    # returns an array of all the users that are available if there are none an empty array will be returned
     return availabile
 
 
@@ -101,7 +119,7 @@ def getDay(date):
     # returnst the day that the date inputed falls on
     return dayNum
 
-print(search('LS29', '01:00', '09:00', '2021-05-03'))
+# print(search('LS29', '2021-05-04', '14:00', '15:00'))
 
 
 

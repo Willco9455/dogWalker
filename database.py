@@ -292,6 +292,7 @@ db = dbClass()
 # db.addUsr('davidjones@gmail.com','password1','David','Jones','walker','LS29')
 # db.addUsr('richarddavis@gmail.com','password1','Richard','Davis','walker','LS29')
 
+## Add the test set 
 # db.addAvail(1,'monday','08:00','17:00')
 # db.addAvail(1,'tuesday','08:00','17:00')
 # db.addAvail(1,'wednesday','09:30','17:00')
