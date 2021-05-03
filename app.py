@@ -180,10 +180,13 @@ def confirm(walkerId):
     else:
         return render_template('confirm.html', walker=walker, bookingData=session['bookingData'])
     
-@app.route('/bookings')
-def bookings():
-    bookings = db.getOwnerBookings(session['usrId'])
-    return f'{bookings}'
+@app.route('/bookings/<accType>')
+def bookings(accType):
+    if accType == 'Owner':
+        bookings = db.getOwnerBookings(session['usrId'])
+        return render_template('bookings.html', bookings=bookings)
+    else:
+        return 'feature not yet implemented'
 
 if __name__ == '__main__':  ## This makes sure the app runs when the python file is ran 
     app.run(debug = True)   ## The debug = true turns the debug on so that when there is an syntax error the 
