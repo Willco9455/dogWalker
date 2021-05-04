@@ -113,7 +113,6 @@ class dbClass:
         ## Whatever is held in the data variable will be returned from the function 
         return(data)
 
-    
     ## This method of the databse object will be used to add new users to the database   
     # the function takes the perameters of usr = the new users username, pas = the new users password 
     def addUsr(self, email, pas, fName, lName, accType, post, numberOfReviews, starRating):
@@ -135,7 +134,7 @@ class dbClass:
         conn.commit()
         conn.close()
 
-    def updateRating(self, usrId, newStar):
+    def updateRatingAdd(self, usrId, newStar):
         ## connects to the database 
         conn = sqlite3.connect('main.db')
         c = conn.cursor()
@@ -155,6 +154,26 @@ class dbClass:
         c.execute(f'UPDATE users SET numberOfReviews = {newNumReviews}, starRating = {newStarRating} WHERE usrId="{usrId}"')
         conn.commit()
         conn.close()
+
+    def updateRatingMinus(self, usrId, oldStar):
+        ## connects to the database 
+        conn = sqlite3.connect('main.db')
+        c = conn.cursor()
+        # gets the current number of review and the current star rating for the userId
+        c.execute(f'SELECT numberOfReviews, starRating FROM users WHERE usrId="{usrId}"')
+        data = c.fetchall()
+
+        # adds one to the number of reviews made and saves as new variable
+        newNumReviews = data[0][0] - 1
+
+         # calculates the new mean star rating 
+        newStarRating = ((data[0][0] * data[0][1]) - oldStar) / newNumReviews
+        # rounds the new star rating to the nearest 1/10th
+        newStarRating = round(newStarRating, 1)
+        c.execute(f'UPDATE users SET numberOfReviews = {newNumReviews}, starRating = {newStarRating} WHERE usrId="{usrId}"')
+        conn.commit()
+        conn.close()
+        print('Success')
 
     ## method used to clear the the table to get rid of all records 
     def clrTbl(self):
@@ -366,7 +385,7 @@ class dbClass:
         conn.close()
 
         # Updates the star rating for the user
-        self.updateRating(forUsrId, star)
+        self.updateRatingAdd(forUsrId, star)
     
     def getReviewsFor(self, usrId):
         ## Connects to the database 
@@ -394,14 +413,23 @@ class dbClass:
 
         conn.commit()
         conn.close()
-
+    
+    def deleteReview(self, byUsrId, forUsrId, message):
+        ## Connects to the database 
+        conn = sqlite3.connect('main.db')
+        c = conn.cursor()
+        c.execute(f'DELETE FROM review WHERE byUsrId={byUsrId} and forUsrId={forUsrId} and message="{message}"')
+        print('was deleted')
+        conn.commit()
+        conn.close()
 
 db = dbClass()
 # db.clrReview()
-# db.updateRating(1, 500)
+db.deleteReview(2, 2, "new review? ")
+
 # print(db.search('usrId', 1))
 # db.clrBooking()
-print(db.getReviewsFor(1))
+# print(db.getReviewsFor(1))
 
 # db.makeReview(3,1, '2021-09-21', 4, 'Great guy had no problems with this walk')
 # db.clrReview()

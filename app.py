@@ -209,10 +209,21 @@ def profile(usrId):
 @app.route('/leaveReview/<forId>', methods=['GET', 'POST'])
 def leaveReview(forId):
     if request.method == 'POST':
-        db.makeReview(session['usrId'], forId, d.today(), int(request.form['star']), request.form['message'])
+        db.makeReview(session['usrId'], forId, d.today(), int(request.form['star']), request.form['message'].strip())
         return redirect(f'/profile/{forId}')
     else: 
         return render_template('leaveReview.html')
+
+@app.route('/delRev/<data>', methods=['GET', 'POST'])
+def delRev(data):
+    # Turns data into an array [byUsrId, forUsrId, message, starRating]
+    data = data.split('-')
+
+    print(data)
+    db.updateRatingMinus(data[1], float(data[3]))
+    db.deleteReview(data[0], data[1], data[2])
+    return redirect(f'/profile/{data[1]}')
+    return 'hello'
 
 if __name__ == '__main__':  ## This makes sure the app runs when the python file is ran 
     app.run(debug = True)   ## The debug = true turns the debug on so that when there is an syntax error the 

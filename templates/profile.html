@@ -24,8 +24,9 @@
                     <span class="">Stars - {{ i[3] }} </span>
                     <p class="reviewText">"{{ i[4] }}"</p>
                 </span>
+                {{ i }}
+                <a href="/delRev/{{ i[0] }}-{{ i[1] }}-{{ i[4].strip() }}-{{ i[3] }}">Delete</a>
             </div>
-            
         {% endfor %}
     </p>
     <a href="/leaveReview/{{ userObj.usrId }}">Leave A Review</a>
