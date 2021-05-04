@@ -7,12 +7,13 @@
 }
 
 .review{ 
-    background-color: red;
+    background-color: orange;
     margin-left: auto;
     margin-right: auto;
     display: block;
     border: 3px solid black;
     width: max-content;
+    max-width: 475px;
     padding: 5px 12px;
     margin-bottom: 20px;
     text-decoration: none;
@@ -23,4 +24,20 @@
 .reviewText{
     font-size: 19px;
     font-style: italic;
+}
+
+a{
+    font-size: 20px;
+    border: 2px solid black;
+    border-radius: 20px;
+    background-color: red ;
+    padding: 8px 10px;
+    display: inline-block;
+    margin-top: 6px;
+    text-decoration: none;
+    color: black;
+
+}#topButton {
+    background-color: lightblue;
+    margin-top: 60px;
 }

@@ -15,7 +15,8 @@
         Rating {{ userObj.starRating }} Stars
     </p>
     <p>
-        <h6>Most Recent Reviews</h6>
+        <a href="/leaveReview/{{ userObj.usrId }}" id="topButton">Leave A Review</a>
+        <h4>Most Recent Reviews</h6>
         {% for i in userObj.getReviewsFor() %}
             <div class="review">
                 <span style="font-size: 12px;">
@@ -24,10 +25,8 @@
                     <span class="">Stars - {{ i[3] }} </span>
                     <p class="reviewText">"{{ i[4] }}"</p>
                 </span>
-                {{ i }}
                 <a href="/delRev/{{ i[0] }}-{{ i[1] }}-{{ i[4].strip() }}-{{ i[3] }}">Delete</a>
             </div>
         {% endfor %}
     </p>
-    <a href="/leaveReview/{{ userObj.usrId }}">Leave A Review</a>
 </body>

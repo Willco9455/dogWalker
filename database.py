@@ -425,7 +425,6 @@ class dbClass:
 
 db = dbClass()
 # db.clrReview()
-db.deleteReview(2, 2, "new review? ")
 
 # print(db.search('usrId', 1))
 # db.clrBooking()
