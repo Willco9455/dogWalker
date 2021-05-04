@@ -14,6 +14,19 @@
         This user is a Dog {{ (userObj.accType).capitalize() }} <br>
         Rating {{ userObj.starRating }} Stars
     </p>
-    <h6>Most Recent Reviews</h6>
-    <p>{{ userObj.getReviewsFor() }}</p>
+    <p>
+        <h6>Most Recent Reviews</h6>
+        {% for i in userObj.getReviewsFor() %}
+            <div class="review">
+                <span style="font-size: 12px;">
+                    <span class="name">Date Made</span> -  {{ i[2] }}<span style="padding-left: 30px;"></span>
+                    <span class="name">Review From </span> - {{ user(i[0]).fName }} {{ user(i[0]).lName }} <br>
+                    <span class="">Stars - {{ i[3] }} </span>
+                    <p class="reviewText">"{{ i[4] }}"</p>
+                </span>
+            </div>
+            
+        {% endfor %}
+    </p>
+    <a href="/leaveReview/{{ userObj.usrId }}">Leave A Review</a>
 </body>
