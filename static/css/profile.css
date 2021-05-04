@@ -5,3 +5,22 @@
 .header{ 
     margin: 60px;
 }
+
+.review{ 
+    background-color: red;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    border: 3px solid black;
+    width: max-content;
+    padding: 5px 12px;
+    margin-bottom: 20px;
+    text-decoration: none;
+    color: black;
+    border-radius: 10px;
+}
+
+.reviewText{
+    font-size: 19px;
+    font-style: italic;
+}

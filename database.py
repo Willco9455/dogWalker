@@ -30,7 +30,7 @@ class dbClass:
             accType text,
             postcode text,
             numberOfReviews integer,
-            starRating integer
+            starRating real
             )''')
         except:
             pass
@@ -69,7 +69,7 @@ class dbClass:
             date text,
             star integer,
             message text,
-            PRIMARY KEY (byUsrId, forUsrId)
+            PRIMARY KEY (byUsrId, forUsrId, message)
             )''')
         except:
             pass
@@ -135,6 +135,27 @@ class dbClass:
         conn.commit()
         conn.close()
 
+    def updateRating(self, usrId, newStar):
+        ## connects to the database 
+        conn = sqlite3.connect('main.db')
+        c = conn.cursor()
+        # gets the current number of review and the current star rating for the userId
+        c.execute(f'SELECT numberOfReviews, starRating FROM users WHERE usrId="{usrId}"')
+        data = c.fetchall()
+        print(data)
+
+        # adds one to the number of reviews made and saves as new variable
+        newNumReviews = data[0][0] + 1
+
+        # calculates the new mean star rating 
+        newStarRating = ((data[0][0] * data[0][1]) + newStar) / newNumReviews
+        # rounds the new star rating to the nearest 1/10th
+        newStarRating = round(newStarRating, 1)
+        # update the current number of review and the current star rating
+        c.execute(f'UPDATE users SET numberOfReviews = {newNumReviews}, starRating = {newStarRating} WHERE usrId="{usrId}"')
+        conn.commit()
+        conn.close()
+
     ## method used to clear the the table to get rid of all records 
     def clrTbl(self):
         conn = sqlite3.connect('main.db')
@@ -151,7 +172,7 @@ class dbClass:
             accType text,
             postcode text
             numberOfReviews integer,
-            starRating integer
+            starRating real
             )''')
         conn.commit()
 
@@ -238,7 +259,7 @@ class dbClass:
 #####################################################################################################################
 ################################# START OF BOOKING FUNCTIONALITY ####################################################
 #####################################################################################################################
-    
+
     def clrBooking(self):
         conn = sqlite3.connect('main.db')
         c = conn.cursor()
@@ -317,7 +338,7 @@ class dbClass:
             date text,
             star integer,
             message text,
-            PRIMARY KEY (byUsrId, forUsrId)
+            PRIMARY KEY (byUsrId, forUsrId, message)
             )''')
         conn.commit()
         conn.close()
@@ -327,14 +348,25 @@ class dbClass:
         conn = sqlite3.connect('main.db')
         c = conn.cursor()
 
+        # c.execute(f'SELECT * FROM review WHERE byUsrId="{byUsrId}" AND forUsrId="{forUsrId}"')
+        # data = c.fetchall()
+        # if len(data) != 0:
+        #     print('cannot leave two reviews silly billy')
+        #     return 
+
         # Inserts the new data into the table
         c.execute(f'''
         INSERT INTO review (byUsrId, forUsrId, date, star, message)
         VALUES ({byUsrId},{forUsrId},"{date}","{star}","{message}")
         ''')
+
+
         print('booking made successfully')
         conn.commit()
         conn.close()
+
+        # Updates the star rating for the user
+        self.updateRating(forUsrId, star)
     
     def getReviewsFor(self, usrId):
         ## Connects to the database 
@@ -342,10 +374,9 @@ class dbClass:
         c = conn.cursor()
 
         # SQL query which will fetch the booksings for the walker
-        # c.execute(f'SELECT * FROM review WHERE forUsrId="{usrId}" ORDER BY date DESC')
-        c.execute(f'SELECT * FROM review ')
+        c.execute(f'SELECT * FROM review WHERE forUsrId="{usrId}" ORDER BY date DESC Limit 5')
+        # c.execute(f'SELECT * FROM review ORDER BY date DESC')
         data = c.fetchall()
-        print(data)
         return(data)
 
         conn.commit()
@@ -365,27 +396,32 @@ class dbClass:
         conn.close()
 
 
-# db = dbClass()
+db = dbClass()
+# db.clrReview()
+# db.updateRating(1, 500)
+# print(db.search('usrId', 1))
 # db.clrBooking()
-# print(db.getWalkerBookings(1, '2021-05-04'))
-
-# db.addBooking(2,1,'2021-05-03','monday','09:00','10:00')
-# db.addBooking(2,1,'2021-05-04','tuesday','13:00','14:00')
-# db.addBooking(3,4,'2021-05-03','monday','07:00','08:00')
+print(db.getReviewsFor(1))
 
 # db.makeReview(3,1, '2021-09-21', 4, 'Great guy had no problems with this walk')
 # db.clrReview()
 # db.clrTbl()
 # db.clrAvail()
 
+# '''
+
+# db.addBooking(2,1,'2021-05-03','monday','09:00','10:00')
+# db.addBooking(2,1,'2021-05-04','tuesday','13:00','14:00')
+# db.addBooking(3,4,'2021-05-03','monday','07:00','08:00')
+
 
 ## Add the test set of data to the database
-# db.addUsr('johnsnow@gmail.com','password1','John','Snow','walker','LS29', 50, 3)
-# db.addUsr('jamesright@gmail.com','password1','James','Right','owner','TD40', 50, 3)
-# db.addUsr('robertsmith@gmail.com','password1','Robert','Smith','owner','LS29', 50, 3)
-# db.addUsr('michaelbrown@gmail.com','password1','Michael','Brown','walker','TD40', 50, 3)
-# db.addUsr('davidjones@gmail.com','password1','David','Jones','walker','LS29', 50, 3)
-# db.addUsr('richarddavis@gmail.com','password1','Richard','Davis','walker','LS29', 50, 3)
+# db.addUsr('johnsnow@gmail.com','password1','John','Snow','walker','LS29', 2, 3)
+# db.addUsr('jamesright@gmail.com','password1','James','Right','owner','TD40', 2, 3)
+# db.addUsr('robertsmith@gmail.com','password1','Robert','Smith','owner','LS29', 2, 3)
+# db.addUsr('michaelbrown@gmail.com','password1','Michael','Brown','walker','TD40', 2, 3)
+# db.addUsr('davidjones@gmail.com','password1','David','Jones','walker','LS29', 2, 3)
+# db.addUsr('richarddavis@gmail.com','password1','Richard','Davis','walker','LS29', 2, 3)
 
 ## Add the test set 
 # db.addAvail(1,'monday','08:00','17:00')
@@ -402,3 +438,4 @@ class dbClass:
 # db.addAvail(5,'wednesday','07:00','16:00')
 # db.addAvail(6,'saturday','12:00','18:00')
 # db.addAvail(6,'sunday','12:00','18:00')
+# '''

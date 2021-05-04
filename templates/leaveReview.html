@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dog Walker - Availability</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+
+<body>
+    <!-- Login header that appears at the top of the webpage -->
+    <h1>Leave Review</h1>
+
+    <!-- This is the login form that will be displayed on the login page with the username and password fields 
+    to be subbmitted POST method used-->
+    <form method="POST">
+        <!-- t  -->
+        <label>Start Rating:</label>
+        <input type="number" name="star" min="1" max="5" required><br>
+        
+        <!-- the username input has name usr which will be used when retriving this data  -->
+        <label>Message:</label>
+        <input type="text" name="message" required><br> 
+
+        <input type="submit" value="Done"><br> 
+    </form>
+</body>

@@ -203,7 +203,16 @@ def bookings(accType):
 @app.route('/profile/<usrId>')
 def profile(usrId):
     userObj = user(usrId)
-    return render_template('profile.html', userObj=userObj)
+    return render_template('profile.html', userObj=userObj, user=user)
+
+
+@app.route('/leaveReview/<forId>', methods=['GET', 'POST'])
+def leaveReview(forId):
+    if request.method == 'POST':
+        db.makeReview(session['usrId'], forId, d.today(), int(request.form['star']), request.form['message'])
+        return redirect(f'/profile/{forId}')
+    else: 
+        return render_template('leaveReview.html')
 
 if __name__ == '__main__':  ## This makes sure the app runs when the python file is ran 
     app.run(debug = True)   ## The debug = true turns the debug on so that when there is an syntax error the 
