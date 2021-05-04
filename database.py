@@ -28,7 +28,9 @@ class dbClass:
             firstName text,
             lastName text,
             accType text,
-            postcode text
+            postcode text,
+            numberOfReviews integer,
+            starRating integer
             )''')
         except:
             pass
@@ -55,6 +57,19 @@ class dbClass:
             startTime text,
             endTime text,
             PRIMARY KEY (ownerId, walkerId, date)
+            )''')
+        except:
+            pass
+
+        ## creates the review table if it does not already exist 
+        try:
+            c.execute(''' CREATE TABLE review (
+            byUsrId integer,
+            forUsrId integer,
+            date text,
+            star integer,
+            message text,
+            PRIMARY KEY (byUsrId, forUsrId)
             )''')
         except:
             pass
@@ -101,7 +116,7 @@ class dbClass:
     
     ## This method of the databse object will be used to add new users to the database   
     # the function takes the perameters of usr = the new users username, pas = the new users password 
-    def addUsr(self, email, pas, fName, lName, accType, post):
+    def addUsr(self, email, pas, fName, lName, accType, post, numberOfReviews, starRating):
         ## Uses the search method of the database to find any users that already have the username passed 
         # into the method 
         srchRes = self.search('email', email)
@@ -113,8 +128,8 @@ class dbClass:
         #  to the database
         conn = sqlite3.connect('main.db')
         c = conn.cursor()
-        c.execute(f'''INSERT INTO users (email, password, firstName, lastName, accType, postcode) 
-            VALUES ("{email}", "{pas}", "{fName}", "{lName}", "{accType}", "{post}")
+        c.execute(f'''INSERT INTO users (email, password, firstName, lastName, accType, postcode, numberOfReviews, starRating) 
+            VALUES ("{email}", "{pas}", "{fName}", "{lName}", "{accType}", "{post}", {numberOfReviews}, {starRating})
             ''')
 
         conn.commit()
@@ -135,6 +150,8 @@ class dbClass:
             lastName text,
             accType text,
             postcode text
+            numberOfReviews integer,
+            starRating integer
             )''')
         conn.commit()
 
@@ -255,13 +272,17 @@ class dbClass:
         conn.close()
     
     # Takes the walkerId and the day of the booking and will return all the bookings for that day
-    def getWalkerBookings(self, walkerId, date):
+    def getWalkerBookings(self, walkerId, date='Null'):
         ## Connects to the database 
         conn = sqlite3.connect('main.db')
         c = conn.cursor()
 
+        if date == 'Null':
+            c.execute(f'SELECT * FROM booking WHERE walkerId="{walkerId}" ORDER BY date ASC')
+        else:
+            c.execute(f'SELECT * FROM booking WHERE walkerId="{walkerId}" AND date="{date}" ')
+        
         # SQL query which will fetch the booksings for the walker
-        c.execute(f'SELECT * FROM booking WHERE walkerId="{walkerId}" AND date="{date}"')
         data = c.fetchall()
         return(data)
 
@@ -274,7 +295,69 @@ class dbClass:
         c = conn.cursor()
 
         # SQL query which will fetch the booksings for the walker
-        c.execute(f'SELECT * FROM booking WHERE ownerId="{ownerId}"')
+        c.execute(f'SELECT * FROM booking WHERE ownerId="{ownerId}" ORDER BY date ASC')
+        data = c.fetchall()
+        return(data)
+
+        conn.commit()
+        conn.close()
+
+#####################################################################################################################
+################################# START OF REVIEW TABLE FUNCTIONALITY ####################################################
+#####################################################################################################################
+    
+    def clrReview(self):
+        conn = sqlite3.connect('main.db')
+        c = conn.cursor()
+        c.execute('DROP TABLE review')
+        conn.commit()
+        c.execute(''' CREATE TABLE review (
+            byUsrId integer,
+            forUsrId integer,
+            date text,
+            star integer,
+            message text,
+            PRIMARY KEY (byUsrId, forUsrId)
+            )''')
+        conn.commit()
+        conn.close()
+
+    def makeReview(self, byUsrId, forUsrId, date, star, message):
+        ## connects to database 
+        conn = sqlite3.connect('main.db')
+        c = conn.cursor()
+
+        # Inserts the new data into the table
+        c.execute(f'''
+        INSERT INTO review (byUsrId, forUsrId, date, star, message)
+        VALUES ({byUsrId},{forUsrId},"{date}","{star}","{message}")
+        ''')
+        print('booking made successfully')
+        conn.commit()
+        conn.close()
+    
+    def getReviewsFor(self, usrId):
+        ## Connects to the database 
+        conn = sqlite3.connect('main.db')
+        c = conn.cursor()
+
+        # SQL query which will fetch the booksings for the walker
+        # c.execute(f'SELECT * FROM review WHERE forUsrId="{usrId}" ORDER BY date DESC')
+        c.execute(f'SELECT * FROM review ')
+        data = c.fetchall()
+        print(data)
+        return(data)
+
+        conn.commit()
+        conn.close()
+    
+    def getReviewsBy(self, usrId):
+         ## Connects to the database 
+        conn = sqlite3.connect('main.db')
+        c = conn.cursor()
+
+        # SQL query which will fetch the booksings for the walker
+        c.execute(f'SELECT * FROM review WHERE toUsrId="{usrId}" ORDER BY date DESC')
         data = c.fetchall()
         return(data)
 
@@ -282,8 +365,7 @@ class dbClass:
         conn.close()
 
 
-
-db = dbClass()
+# db = dbClass()
 # db.clrBooking()
 # print(db.getWalkerBookings(1, '2021-05-04'))
 
@@ -291,20 +373,19 @@ db = dbClass()
 # db.addBooking(2,1,'2021-05-04','tuesday','13:00','14:00')
 # db.addBooking(3,4,'2021-05-03','monday','07:00','08:00')
 
-
-
-
+# db.makeReview(3,1, '2021-09-21', 4, 'Great guy had no problems with this walk')
+# db.clrReview()
 # db.clrTbl()
 # db.clrAvail()
 
 
 ## Add the test set of data to the database
-# db.addUsr('johnsnow@gmail.com','password1','John','Snow','walker','LS29')
-# db.addUsr('jamesright@gmail.com','password1','James','Right','owner','TD40')
-# db.addUsr('robertsmith@gmail.com','password1','Robert','Smith','owner','LS29')
-# db.addUsr('michaelbrown@gmail.com','password1','Michael','Brown','walker','TD40')
-# db.addUsr('davidjones@gmail.com','password1','David','Jones','walker','LS29')
-# db.addUsr('richarddavis@gmail.com','password1','Richard','Davis','walker','LS29')
+# db.addUsr('johnsnow@gmail.com','password1','John','Snow','walker','LS29', 50, 3)
+# db.addUsr('jamesright@gmail.com','password1','James','Right','owner','TD40', 50, 3)
+# db.addUsr('robertsmith@gmail.com','password1','Robert','Smith','owner','LS29', 50, 3)
+# db.addUsr('michaelbrown@gmail.com','password1','Michael','Brown','walker','TD40', 50, 3)
+# db.addUsr('davidjones@gmail.com','password1','David','Jones','walker','LS29', 50, 3)
+# db.addUsr('richarddavis@gmail.com','password1','Richard','Davis','walker','LS29', 50, 3)
 
 ## Add the test set 
 # db.addAvail(1,'monday','08:00','17:00')

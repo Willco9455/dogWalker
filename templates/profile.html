@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dog Walker - Availability</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
+</head>
+
+<body>
+    <div class="header"></div>
+    <img src="{{ url_for('static', filename='profilePic.png') }}">
+    <p><span class="name"> {{ userObj.fName }} {{ userObj.lName }}</span><br>
+        This user is a Dog {{ (userObj.accType).capitalize() }} <br>
+        Rating {{ userObj.starRating }} Stars
+    </p>
+    <h6>Most Recent Reviews</h6>
+    <p>{{ userObj.getReviewsFor() }}</p>
+</body>

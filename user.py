@@ -10,6 +10,8 @@ class user:
     fName = ""
     lName = ""
     accType = ""
+    postcode = ""
+    starRating = 0
     def __init__(self, usrId):
         # Creates details varibale that holds the record of the user with a inputed usrId 
         details = (db.search('usrId', usrId))[0]
@@ -20,6 +22,8 @@ class user:
         self.fName = details[3]
         self.lName = details[4]
         self.accType = details[5]
+        self.postcode = details[6]
+        self.starRating = details[8]
 
     # Method for the user that uses the database getAivail function to get the users availabilty array
     def getAvail(self): 
@@ -32,3 +36,7 @@ class user:
     
     def delAvai(self, day):
         db.delAvail(self.usrId, day)
+
+    def getReviewsFor(self):
+        result = db.getReviewsFor(self.usrId)
+        return result

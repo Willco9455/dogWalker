@@ -170,23 +170,40 @@ def srchRoute():
 
 @app.route('/confirm/<walkerId>', methods=['GET', 'POST'])
 def confirm(walkerId):
+    # creates a user object for the walker that the booking is going to be 
+    # for, will be passed into the html template 
     walker = user(walkerId)
     # Gets the booking data in the format -->
     # [ownerId,date,day,startTime,endTime]
     bookingData = session['bookingData']
+
+    # If statment that runs when the confirm button is pressed
     if request.method == 'POST':
+        # Adds the booking to the booking table 
         db.addBooking(bookingData[0], walker.usrId, bookingData[1], bookingData[2], bookingData[3], bookingData[4])
+        # Takes the user badck to the hoem screen
         return redirect(url_for('home'))
     else:
+        # Renderes the confim.html page
         return render_template('confirm.html', walker=walker, bookingData=session['bookingData'])
-    
+ 
+# Takes in the accType as a varible from the path used to get to the file  
 @app.route('/bookings/<accType>')
 def bookings(accType):
+    # If the acount type is owner than use the getownerbooking method
+    # else use getwalkerbooking method
     if accType == 'Owner':
         bookings = db.getOwnerBookings(session['usrId'])
-        return render_template('bookings.html', bookings=bookings, user=user)
+        return render_template('bookings.html', bookings=bookings, user=user, accType=accType)
     else:
-        return 'feature not yet implemented'
+        bookings = db.getWalkerBookings(session['usrId'])
+        return render_template('bookings.html', bookings=bookings, user=user, accType=accType)
+
+
+@app.route('/profile/<usrId>')
+def profile(usrId):
+    userObj = user(usrId)
+    return render_template('profile.html', userObj=userObj)
 
 if __name__ == '__main__':  ## This makes sure the app runs when the python file is ran 
     app.run(debug = True)   ## The debug = true turns the debug on so that when there is an syntax error the 
