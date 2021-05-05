@@ -1,14 +1,15 @@
-<!DOCTYPE html>
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- set the title of the web page -->
-    <title>Dog Walker - Search</title>
-     <!-- add style  to the site -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/results.css') }}">
-</head>
+{% extends "base.html" %}
+{% block title %}Results{% endblock %}
 
-<body>
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/results.css') }}">
+
+{% endblock %}
+
+{% block body %}
+{{ super() }}
+
     <h1>Results</h1>
 
     <!-- checks if the length of teh available array is 0 and if it is then displays a message -->
@@ -26,4 +27,5 @@
             </a>
         {% endfor %}
     {% endif %}
-</body>
+    
+{% endblock %}

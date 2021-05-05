@@ -1,12 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dog Walker - Edit</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-</head>
+{% extends "base.html" %}
+{% block title %}Edit Aviailability{% endblock %}
 
-<body>
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+
+{% endblock %}
+
+{% block body %}
+    {{ super() }}
+
     <h1>{{ day.capitalize() }}</h1>
     <form method="POST">
         <label for="startTime">Start Time:</label>
@@ -22,4 +25,5 @@
         <input type="submit" value="Not Availabile"><br>
     </form>
     <p style="color: red;">{{ err }}</p>
-</body>
+
+{% endblock %}

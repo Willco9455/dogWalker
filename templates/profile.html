@@ -1,13 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dog Walker - Availability</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
-</head>
+{% extends "base.html" %}
+{% block title %}Review{% endblock %}
 
-<body>
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
+
+{% endblock %}
+
+{% block body %}
+{{ super() }}
+
     <div class="header"></div>
     <img src="{{ url_for('static', filename='profilePic.png') }}">
     <p><span class="name"> {{ userObj.fName }} {{ userObj.lName }}</span><br>
@@ -22,11 +24,11 @@
                 <span style="font-size: 12px;">
                     <span class="name">Date Made</span> -  {{ i[2] }}<span style="padding-left: 30px;"></span>
                     <span class="name">Review From </span> - {{ user(i[0]).fName }} {{ user(i[0]).lName }} <br>
-                    <span class="">Stars - {{ i[3] }} </span>
+                    <span class="name">Stars - </span>{{ i[3] }}
                     <p class="reviewText">"{{ i[4] }}"</p>
                 </span>
                 <a href="/delRev/{{ i[0] }}-{{ i[1] }}-{{ i[4].strip() }}-{{ i[3] }}">Delete</a>
             </div>
         {% endfor %}
     </p>
-</body>
+{% endblock %}

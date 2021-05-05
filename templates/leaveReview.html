@@ -1,12 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dog Walker - Availability</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-</head>
+{% extends "base.html" %}
+{% block title %}Review{% endblock %}
 
-<body>
+{% block head %}
+    {{ super() }}
+
+{% endblock %}
+
+{% block body %}
+{{ super() }}
     <!-- Login header that appears at the top of the webpage -->
     <h1>Leave Review</h1>
 
@@ -23,4 +24,4 @@
 
         <input type="submit" value="Done"><br> 
     </form>
-</body>
+{% endblock %}

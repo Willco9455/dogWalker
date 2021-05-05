@@ -1,13 +1,14 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DogWalker-Register</title>
-    <!-- links the main css fail into the template so the style will be update with the main css -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-</head>
+{% extends "base.html" %}
+{% block title %}Review{% endblock %}
 
-<body>
+{% block head %}
+    {{ super() }}
+
+{% endblock %}
+
+{% block body %}
+{{ super() }}
+
     <h1>REGISTER</h1>
     <form method="POST">
         <label>Email:</label>
@@ -36,5 +37,4 @@
         <!-- This is where the variable "error" is passed into the function will appear  -->
         <p style="color: red;">{{ error }}</p>
     </form>
-</body>
-</html>
+{% endblock %}

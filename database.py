@@ -367,11 +367,11 @@ class dbClass:
         conn = sqlite3.connect('main.db')
         c = conn.cursor()
 
-        # c.execute(f'SELECT * FROM review WHERE byUsrId="{byUsrId}" AND forUsrId="{forUsrId}"')
-        # data = c.fetchall()
-        # if len(data) != 0:
-        #     print('cannot leave two reviews silly billy')
-        #     return 
+        c.execute(f'SELECT * FROM review WHERE byUsrId="{byUsrId}" AND forUsrId="{forUsrId}"')
+        data = c.fetchall()
+        if len(data) != 0:
+            print('cannot leave two reviews silly billy')
+            return 
 
         # Inserts the new data into the table
         c.execute(f'''

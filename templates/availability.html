@@ -1,13 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dog Walker - Availability</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/availability.css') }}">
-</head>
+{% extends "base.html" %}
+{% block title %}Availability{% endblock %}
 
-<body>
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/availability.css') }}">
+
+{% endblock %}
+
+{% block body %}
+    {{ super() }}
+    
     <h2>Weekly Availability</h2>
     <!-- grid conatiner for the day availabilites -->
     <div class="gridContainer">
@@ -27,9 +29,5 @@
             </a>
         {% endfor %}
     </div>
-    
-    
-</body>
-</html>
-
+{% endblock %}
 
