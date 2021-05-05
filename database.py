@@ -134,7 +134,9 @@ class dbClass:
         conn.commit()
         conn.close()
 
+    # Will update the starRating for a user by adding a star 
     def updateRatingAdd(self, usrId, newStar):
+        
         ## connects to the database 
         conn = sqlite3.connect('main.db')
         c = conn.cursor()
@@ -392,7 +394,7 @@ class dbClass:
         conn = sqlite3.connect('main.db')
         c = conn.cursor()
 
-        # SQL query which will fetch the booksings for the walker
+        # SQL query which will fetch the Reviews for the walker
         c.execute(f'SELECT * FROM review WHERE forUsrId="{usrId}" ORDER BY date DESC Limit 5')
         # c.execute(f'SELECT * FROM review ORDER BY date DESC')
         data = c.fetchall()
@@ -406,8 +408,8 @@ class dbClass:
         conn = sqlite3.connect('main.db')
         c = conn.cursor()
 
-        # SQL query which will fetch the booksings for the walker
-        c.execute(f'SELECT * FROM review WHERE toUsrId="{usrId}" ORDER BY date DESC')
+        # SQL query which will fetch the  for the walker
+        c.execute(f'SELECT * FROM review WHERE byUsrId="{usrId}" ORDER BY date DESC')
         data = c.fetchall()
         return(data)
 
@@ -423,7 +425,7 @@ class dbClass:
         conn.commit()
         conn.close()
 
-db = dbClass()
+# db = dbClass()
 # db.clrReview()
 
 # print(db.search('usrId', 1))

@@ -38,5 +38,6 @@ class user:
         db.delAvail(self.usrId, day)
 
     def getReviewsFor(self):
+        # Uses the getReviewsFor method for the database for the user
         result = db.getReviewsFor(self.usrId)
         return result

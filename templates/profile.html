@@ -12,14 +12,22 @@
 
     <div class="header"></div>
     <img src="{{ url_for('static', filename='profilePic.png') }}">
+
+    <!-- This paragraph will load the name of the user being displayed -->
     <p><span class="name"> {{ userObj.fName }} {{ userObj.lName }}</span><br>
         This user is a Dog {{ (userObj.accType).capitalize() }} <br>
         Rating {{ userObj.starRating }} Stars
     </p>
+
+    <!-- This section handels the reviews  -->
     <p>
+        <!-- Will load the leave a review page  -->
         <a href="/leaveReview/{{ userObj.usrId }}" id="topButton">Leave A Review</a>
         <h4>Most Recent Reviews</h6>
+
+        <!-- Loops through the 5 most recent reviews -->
         {% for i in userObj.getReviewsFor() %}
+            <!-- div that will display all the information about the review -->
             <div class="review">
                 <span style="font-size: 12px;">
                     <span class="name">Date Made</span> -  {{ i[2] }}<span style="padding-left: 30px;"></span>
@@ -27,6 +35,7 @@
                     <span class="name">Stars - </span>{{ i[3] }}
                     <p class="reviewText">"{{ i[4] }}"</p>
                 </span>
+                <!-- delete button that navigates to a unique route for each review -->
                 <a href="/delRev/{{ i[0] }}-{{ i[1] }}-{{ i[4].strip() }}-{{ i[3] }}">Delete</a>
             </div>
         {% endfor %}

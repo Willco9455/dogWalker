@@ -202,14 +202,17 @@ def bookings(accType):
 
 @app.route('/profile/<usrId>')
 def profile(usrId):
+    # Gets the object for the user with the user ID of the path
     userObj = user(usrId)
     return render_template('profile.html', userObj=userObj, user=user)
 
-
+# Will run when the leave a review button on a profile is clicked 
 @app.route('/leaveReview/<forId>', methods=['GET', 'POST'])
 def leaveReview(forId):
     if request.method == 'POST':
+        # adds the review through the database mehod
         db.makeReview(session['usrId'], forId, d.today(), int(request.form['star']), request.form['message'].strip())
+        # redirects back to the profile page that was already loaded
         return redirect(f'/profile/{forId}')
     else: 
         return render_template('leaveReview.html')
@@ -218,12 +221,13 @@ def leaveReview(forId):
 def delRev(data):
     # Turns data into an array [byUsrId, forUsrId, message, starRating]
     data = data.split('-')
-
-    print(data)
+    # upadtest the star rating for the users record
     db.updateRatingMinus(data[1], float(data[3]))
+    # removes the review from the review table 
     db.deleteReview(data[0], data[1], data[2])
+    # redirects back to profile page 
     return redirect(f'/profile/{data[1]}')
-    return 'hello'
+
 
 if __name__ == '__main__':  ## This makes sure the app runs when the python file is ran 
     app.run(debug = True)   ## The debug = true turns the debug on so that when there is an syntax error the 
