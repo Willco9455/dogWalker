@@ -10,3 +10,8 @@ a{
     color: black;
 }
 
+.home #homeButton{
+    text-decoration: underline;
+    background-color: white;
+    border: none;
+}
