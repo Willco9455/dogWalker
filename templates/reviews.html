@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Reviews{% endblock %}
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
+
+{% endblock %}
+
+{% block body %}
+    {{ super() }}
+    <h1>Yout Reviews</h1>
+    {% for i in bookings %}
+            <!-- div that will display all the information about the review -->
+            <div class="review">
+                <span style="font-size: 12px;">
+                    <span class="name">Date Made</span> -  {{ i[2] }}<span style="padding-left: 30px;"></span>
+                    <span class="name">Review From </span> - {{ user(i[0]).fName }} {{ user(i[0]).lName }} <br>
+                    <span class="name">Stars - </span>{{ i[3] }}
+                    <p class="reviewText">"{{ i[4] }}"</p>
+                </span>
+                <!-- delete button that navigates to a unique route for each review -->
+                <a href="/delRev/{{ i[0] }}-{{ i[1] }}-{{ i[4].strip() }}-{{ i[3] }}">Delete</a>
+            </div>
+        {% endfor %}
+
+{% endblock %}  

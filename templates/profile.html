@@ -35,8 +35,6 @@
                     <span class="name">Stars - </span>{{ i[3] }}
                     <p class="reviewText">"{{ i[4] }}"</p>
                 </span>
-                <!-- delete button that navigates to a unique route for each review -->
-                <a href="/delRev/{{ i[0] }}-{{ i[1] }}-{{ i[4].strip() }}-{{ i[3] }}">Delete</a>
             </div>
         {% endfor %}
     </p>

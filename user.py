@@ -41,3 +41,8 @@ class user:
         # Uses the getReviewsFor method for the database for the user
         result = db.getReviewsFor(self.usrId)
         return result
+
+    def getReviewsBy(self):
+        # Uses the getReviewsFor method for the database for the user
+        result = db.getReviewsBy(self.usrId)
+        return result

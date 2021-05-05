@@ -226,8 +226,13 @@ def delRev(data):
     # removes the review from the review table 
     db.deleteReview(data[0], data[1], data[2])
     # redirects back to profile page 
-    return redirect(f'/profile/{data[1]}')
+    return redirect('/reviews')
 
+@app.route('/reviews')
+def reviews():
+    userObj = user(session['usrId'])
+    bookings = userObj.getReviewsBy()
+    return render_template('reviews.html', bookings=bookings, user=user)
 
 if __name__ == '__main__':  ## This makes sure the app runs when the python file is ran 
     app.run(debug = True)   ## The debug = true turns the debug on so that when there is an syntax error the 

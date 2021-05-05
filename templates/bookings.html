@@ -15,9 +15,13 @@
     <p> 
         <!-- Checks if the account of the user is owner  -->
         {% if accType == 'Owner' %}
-            <span style="font-weight: bold;"> Walker: </span> {{ user(i[1]).fName }} {{ user(i[1]).lName }} <br>
+            <span style="font-weight: bold;"> Walker: </span> {{ user(i[1]).fName }} {{ user(i[1]).lName }} 
+            <a href="/profile/{{ i[1] }}">View</a>
+            <br>
         {% else %}
-            <span style="font-weight: bold;"> Owner: </span> {{ user(i[0]).fName }} {{ user(i[0]).lName }} <br>
+            <span style="font-weight: bold;"> Owner: </span> {{ user(i[0]).fName }} {{ user(i[0]).lName }} 
+            <a href="/profile/{{ i[0] }}">View</a>
+            <br>
         {% endif %}
         <span style="font-weight: bold;"> Time: </span> {{ i[4] }} - {{ i[5] }} <br>
         <span style="font-weight: bold;"> Day: </span> {{ i[3].capitalize() }} <br>
