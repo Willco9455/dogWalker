@@ -115,7 +115,7 @@ class dbClass:
 
     ## This method of the databse object will be used to add new users to the database   
     # the function takes the perameters of usr = the new users username, pas = the new users password 
-    def addUsr(self, email, pas, fName, lName, accType, post, numberOfReviews, starRating):
+    def addUsr(self, email, pas, fName, lName, accType, post, numberOfReviews=0, starRating=0):
         ## Uses the search method of the database to find any users that already have the username passed 
         # into the method 
         srchRes = self.search('email', email)
@@ -168,14 +168,17 @@ class dbClass:
         # adds one to the number of reviews made and saves as new variable
         newNumReviews = data[0][0] - 1
 
-         # calculates the new mean star rating 
-        newStarRating = ((data[0][0] * data[0][1]) - oldStar) / newNumReviews
-        # rounds the new star rating to the nearest 1/10th
-        newStarRating = round(newStarRating, 1)
-        c.execute(f'UPDATE users SET numberOfReviews = {newNumReviews}, starRating = {newStarRating} WHERE usrId="{usrId}"')
+
+        if newNumReviews == 0:
+            c.execute(f'UPDATE users SET numberOfReviews = 0, starRating = 0 WHERE usrId="{usrId}"')
+        else:   
+            # calculates the new mean star rating 
+            newStarRating = ((data[0][0] * data[0][1]) - oldStar) / newNumReviews
+            # rounds the new star rating to the nearest 1/10th
+            newStarRating = round(newStarRating, 1)
+            c.execute(f'UPDATE users SET numberOfReviews = {newNumReviews}, starRating = {newStarRating} WHERE usrId="{usrId}"')
         conn.commit()
         conn.close()
-        print('Success')
 
     ## method used to clear the the table to get rid of all records 
     def clrTbl(self):

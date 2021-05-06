@@ -22,6 +22,8 @@ app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 def route():
     try:
         savedId = session['usrId']
+        if savedId == 'LOGOUT':
+            return redirect(url_for('login'))
         return redirect(url_for('home'))
     except:
         return redirect(url_for('login'))
@@ -233,6 +235,11 @@ def reviews():
     userObj = user(session['usrId'])
     bookings = userObj.getReviewsBy()
     return render_template('reviews.html', bookings=bookings, user=user)
+
+@app.route('/logout')
+def logout():
+    session['usrId'] = 'LOGOUT'
+    return redirect('/')
 
 if __name__ == '__main__':  ## This makes sure the app runs when the python file is ran 
     app.run(debug = True)   ## The debug = true turns the debug on so that when there is an syntax error the 

@@ -1,14 +1,14 @@
-{% extends "base.html" %}
-{% block title %}Review{% endblock %}
+<!DOCTYPE html>
+<head>
 
-{% block head %}
-    {{ super() }}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- set the title of the web page -->
+    <title>Register - Dog Walker</title>
+    <!-- add style  to the site -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
 
-{% endblock %}
-
-{% block body %}
-{{ super() }}
-
+<body>
     <h1>REGISTER</h1>
     <form method="POST">
         <label>Email:</label>
@@ -23,11 +23,11 @@
         <input type="text" name="fName" placeholder="First Name" value="{{request.form['fName']}}" required><br>
         <label >Last Name:</label>
         <input type="text" name="lName" placeholder="Last Name" value="{{request.form['lName']}}" required><br>
-
+        
         <!-- Post code input -->
         <label>Post Code(<span style="font-style: italic;">just the start</span>):</label><br>
         <input type="text" name="post" placeholder="e.g BR89" value="{{request.form['post']}}" required><br> 
-
+        
         <p>Please select the type of account:</p>
         <input type="radio" name="accType" value="walker" required>
         <label for="walker">Walker</label>
@@ -37,4 +37,4 @@
         <!-- This is where the variable "error" is passed into the function will appear  -->
         <p style="color: red;">{{ error }}</p>
     </form>
-{% endblock %}
+</body>

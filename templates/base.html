@@ -5,13 +5,13 @@
     <!-- set the title of the web page -->
     <title>{% block title %}{% endblock %} - Dog Walker</title>
     <!-- add style  to the site -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     {% endblock %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 </head>
 
 <body>
-    <div class="home">
-        <a id='homeButton' href="/home">Home</a>
+    <div >
+        <a class="homeButton" href="/home">Home</a>  <a class="homeButton" href="/logout">Logout</a>
     </div> 
         
 
