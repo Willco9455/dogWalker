@@ -238,6 +238,7 @@ def reviews():
 
 @app.route('/logout')
 def logout():
+    # changes the usrId to logout which will be checkded in the / route
     session['usrId'] = 'LOGOUT'
     return redirect('/')
 

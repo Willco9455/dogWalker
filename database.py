@@ -115,7 +115,8 @@ class dbClass:
 
     ## This method of the databse object will be used to add new users to the database   
     # the function takes the perameters of usr = the new users username, pas = the new users password 
-    def addUsr(self, email, pas, fName, lName, accType, post, numberOfReviews=0, starRating=0):
+    # def addUsr(self, email, pas, fName, lName, accType, post, numberOfReviews, starRating):
+    def addUsr(self, email, pas, fName, lName, accType, post):
         ## Uses the search method of the database to find any users that already have the username passed 
         # into the method 
         srchRes = self.search('email', email)
@@ -123,14 +124,14 @@ class dbClass:
             print('Username already exists ')
             return 
 
-        ## If there is no existing username in the database then connect to the database and add the user
+        ## If there is no existing username in the databaseh then connect to the database and add the user
         #  to the database
         conn = sqlite3.connect('main.db')
         c = conn.cursor()
         c.execute(f'''INSERT INTO users (email, password, firstName, lastName, accType, postcode, numberOfReviews, starRating) 
-            VALUES ("{email}", "{pas}", "{fName}", "{lName}", "{accType}", "{post}", {numberOfReviews}, {starRating})
+            VALUES ("{email}", "{pas}", "{fName}", "{lName}", "{accType}", "{post}", 0, 0)
             ''')
-
+        print('Account Created !!')
         conn.commit()
         conn.close()
 
@@ -448,12 +449,12 @@ class dbClass:
 
 
 ## Add the test set of data to the database
-# db.addUsr('johnsnow@gmail.com','password1','John','Snow','walker','LS29', 2, 3)
-# db.addUsr('jamesright@gmail.com','password1','James','Right','owner','TD40', 2, 3)
-# db.addUsr('robertsmith@gmail.com','password1','Robert','Smith','owner','LS29', 2, 3)
-# db.addUsr('michaelbrown@gmail.com','password1','Michael','Brown','walker','TD40', 2, 3)
-# db.addUsr('davidjones@gmail.com','password1','David','Jones','walker','LS29', 2, 3)
-# db.addUsr('richarddavis@gmail.com','password1','Richard','Davis','walker','LS29', 2, 3)
+# db.addUsr('johnsnow@gmail.com','password1','John','Snow','walker','LS29')
+# db.addUsr('jamesright@gmail.com','password1','James','Right','owner','TD40')
+# db.addUsr('robertsmith@gmail.com','password1','Robert','Smith','owner','LS29')
+# db.addUsr('michaelbrown@gmail.com','password1','Michael','Brown','walker','TD40')
+# db.addUsr('davidjones@gmail.com','password1','David','Jones','walker','LS29')
+# db.addUsr('richarddavis@gmail.com','password1','Richard','Davis','walker','LS29')
 
 ## Add the test set 
 # db.addAvail(1,'monday','08:00','17:00')
