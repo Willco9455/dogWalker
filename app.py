@@ -219,7 +219,7 @@ def leaveReview(forId):
     else: 
         return render_template('leaveReview.html')
 
-@app.route('/delRev/<data>', methods=['GET', 'POST'])
+@app.route('/delRev/<data>')
 def delRev(data):
     # Turns data into an array [byUsrId, forUsrId, message, starRating]
     data = data.split('-')
@@ -229,6 +229,15 @@ def delRev(data):
     db.deleteReview(data[0], data[1], data[2])
     # redirects back to profile page 
     return redirect('/reviews')
+
+@app.route('/delBooking/<data>')
+def delBooking(data):
+    # Turns data into an array [ownerId, walkerId, date]
+    data = data.split(';')
+    # removes the review from the review table 
+    db.delBooking(data[0], data[1], data[2])
+    # redirects back to profile page 
+    return redirect(f'/bookings/{user(session["usrId"]).accType}')
 
 @app.route('/reviews')
 def reviews():

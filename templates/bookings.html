@@ -26,6 +26,7 @@
         <span style="font-weight: bold;"> Time: </span> {{ i[4] }} - {{ i[5] }} <br>
         <span style="font-weight: bold;"> Day: </span> {{ i[3].capitalize() }} <br>
         <span style="font-weight: bold;"> Date: </span> {{ i[2] }} <br>
+        <a id="delete" href="/delBooking/{{ i[0] }};{{ i[1] }};{{ i[2] }}">Delete</a>
     </p>
     {% endfor %}
 {% endblock %}

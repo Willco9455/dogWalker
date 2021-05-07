@@ -348,6 +348,15 @@ class dbClass:
         conn.commit()
         conn.close()
 
+    def delBooking(self, ownerId, walkerId, date):
+        print(str(ownerId) + str(walkerId) + str(date))
+        ## Connects to the database 
+        conn = sqlite3.connect('main.db')
+        c = conn.cursor()
+        c.execute(f'DELETE FROM booking WHERE ownerId={ownerId} and walkerId={walkerId} and date="{date}"')
+        conn.commit()
+        conn.close()
+
 #####################################################################################################################
 ################################# START OF REVIEW TABLE FUNCTIONALITY ####################################################
 #####################################################################################################################
@@ -443,12 +452,7 @@ class dbClass:
 
 # '''
 
-# db.addBooking(2,1,'2021-05-03','monday','09:00','10:00')
-# db.addBooking(2,1,'2021-05-04','tuesday','13:00','14:00')
-# db.addBooking(3,4,'2021-05-03','monday','07:00','08:00')
-
-
-## Add the test set of data to the database
+# # Add the test set of data to the database
 # db.addUsr('johnsnow@gmail.com','password1','John','Snow','walker','LS29')
 # db.addUsr('jamesright@gmail.com','password1','James','Right','owner','TD40')
 # db.addUsr('robertsmith@gmail.com','password1','Robert','Smith','owner','LS29')
@@ -456,7 +460,7 @@ class dbClass:
 # db.addUsr('davidjones@gmail.com','password1','David','Jones','walker','LS29')
 # db.addUsr('richarddavis@gmail.com','password1','Richard','Davis','walker','LS29')
 
-## Add the test set 
+# # Add the test set 
 # db.addAvail(1,'monday','08:00','17:00')
 # db.addAvail(1,'tuesday','08:00','17:00')
 # db.addAvail(1,'wednesday','09:30','17:00')
@@ -471,4 +475,11 @@ class dbClass:
 # db.addAvail(5,'wednesday','07:00','16:00')
 # db.addAvail(6,'saturday','12:00','18:00')
 # db.addAvail(6,'sunday','12:00','18:00')
+
+# db.addBooking(2,1,'2021-05-03','monday','09:00','10:00')
+# db.addBooking(2,1,'2021-05-04','tuesday','13:00','14:00')
+# db.addBooking(3,4,'2021-05-03','monday','07:00','08:00')
+
+
+
 # '''

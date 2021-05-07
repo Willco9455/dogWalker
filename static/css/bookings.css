@@ -11,3 +11,16 @@ p{
     color: black;
     border-radius: 10px;
 }
+
+a#delete{
+    font-size: 20px;
+    border: 2px solid black;
+    border-radius: 20px;
+    background-color: red ;
+    padding: 5px 10px;
+    display: inline-block;
+    margin-top: 6px;
+    height: fit-content;
+    text-decoration: none;
+    color: black;
+}
