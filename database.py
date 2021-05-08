@@ -30,7 +30,8 @@ class dbClass:
             accType text,
             postcode text,
             numberOfReviews integer,
-            starRating real
+            starRating real,
+            profileImage text
             )''')
         except:
             pass
@@ -128,8 +129,8 @@ class dbClass:
         #  to the database
         conn = sqlite3.connect('main.db')
         c = conn.cursor()
-        c.execute(f'''INSERT INTO users (email, password, firstName, lastName, accType, postcode, numberOfReviews, starRating) 
-            VALUES ("{email}", "{pas}", "{fName}", "{lName}", "{accType}", "{post}", 0, 0)
+        c.execute(f'''INSERT INTO users (email, password, firstName, lastName, accType, postcode, numberOfReviews, starRating, profileImage) 
+            VALUES ("{email}", "{pas}", "{fName}", "{lName}", "{accType}", "{post}", 0, 0, "profilePic.png")
             ''')
         print('Account Created !!')
         conn.commit()
@@ -200,12 +201,22 @@ class dbClass:
             accType text,
             postcode text
             numberOfReviews integer,
-            starRating real
+            starRating real,
+            profileImage text
             )''')
         conn.commit()
 
         conn.close()
 
+    def changeProfilePic(self, usrId, profileImage):
+        conn = sqlite3.connect('main.db')
+        c = conn.cursor()
+       
+
+        # update the
+        c.execute(f'UPDATE users SET profileImage = "{profileImage}" WHERE usrId="{usrId}"')
+        conn.commit()
+        conn.close()
 #####################################################################################################################
 ################################# START OF AVAILABILITY FUNCTIONALITY ###############################################
 #####################################################################################################################
@@ -440,7 +451,6 @@ class dbClass:
         conn.commit()
         conn.close()
 
-# db = dbClass()
 # db.clrReview()
 
 # print(db.search('usrId', 1))
@@ -454,6 +464,8 @@ class dbClass:
 
 # '''
 
+# db = dbClass()
+# db.changeProfilePic(2, 'profile3.jpg')
 # # Add the test set of data to the database
 # db.addUsr('johnsnow@gmail.com','password1','John','Snow','walker','LS29')
 # db.addUsr('jamesright@gmail.com','password1','James','Right','owner','TD40')

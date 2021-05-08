@@ -12,6 +12,7 @@ class user:
     accType = ""
     postcode = ""
     starRating = 0
+    profilePic = ""
     def __init__(self, usrId):
         # Creates details varibale that holds the record of the user with a inputed usrId 
         details = (db.search('usrId', usrId))[0]
@@ -24,6 +25,7 @@ class user:
         self.accType = details[5]
         self.postcode = details[6]
         self.starRating = details[8]
+        self.profilePic = details[9]
 
     # Method for the user that uses the database getAivail function to get the users availabilty array
     def getAvail(self): 
@@ -46,3 +48,6 @@ class user:
         # Uses the getReviewsFor method for the database for the user
         result = db.getReviewsBy(self.usrId)
         return result
+    
+    def getProfilePic(self):
+        return self.profilePic

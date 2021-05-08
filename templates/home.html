@@ -9,7 +9,7 @@
 {% block body %}
     {{ super() }}
     
-    <img src="{{ url_for('static', filename='profilePic.png') }}">
+    <img src="{{ url_for('static', filename=usrObj.getProfilePic()) }}">
     <p>Welcome, {{ usrObj.fName }} {{ usrObj.lName }}<br>
         You are a {{ (usrObj.accType).capitalize() }}
     </p>
@@ -19,17 +19,17 @@
         <p>
             <span style="font-weight: bold;">Change your availability</span><br>
             Change when you are available for walking <br>
-            <a id="search" href="availability">Click Here</a>
+            <a class="button" id="search" href="availability">Click Here</a>
         </p>
         <p>
             <span style="font-weight: bold;">Check your bookings</span><br>
             View the bookings that you curently have <br>
-            <a id="bookings" href="bookings/Walker">Click Here</a>
+            <a class="button" id="bookings" href="bookings/Walker">Click Here</a>
         </p>
         <p>
             <span style="font-weight: bold;">View your Reviews</span><br>
             View the reviews you have made <br>
-            <a id="reviews" href="/reviews">Click Here</a>
+            <a class="button" id="reviews" href="/reviews">Click Here</a>
         </p>
     </div>
     <!-- WHEN SIGNED IN AS OWNER -->

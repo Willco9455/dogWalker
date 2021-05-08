@@ -2,17 +2,22 @@
 {% block title %}Review{% endblock %}
 
 {% block head %}
-    {{ super() }}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
+    {{ super() }}
 
 {% endblock %}
 
 {% block body %}
 {{ super() }}
 
-    <div class="header"></div>
-    <img src="{{ url_for('static', filename='profilePic.png') }}">
-
+    {% if session['usrId'] == userObj.usrId  %}
+        <a class="profilePic" href="/editProfile">
+            <img src="{{ url_for('static', filename=userObj.getProfilePic()) }}"><br>
+        </a>
+    {% else %}
+        <img src="{{ url_for('static', filename=userObj.getProfilePic()) }}"><br>
+    {% endif %}
+        
     <!-- This paragraph will load the name of the user being displayed -->
     <p><span class="name"> {{ userObj.fName }} {{ userObj.lName }}</span><br>
         This user is a Dog {{ (userObj.accType).capitalize() }} <br>

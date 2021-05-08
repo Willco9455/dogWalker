@@ -252,6 +252,17 @@ def logout():
     session['usrId'] = 'LOGOUT'
     return redirect('/')
 
+@app.route('/editProfile')
+def editProfilePicDisplay():
+    profiles = ['profilePic.png','profile1.jpg','profile2.jpg','profile3.jpg','profile4.jpg','profile5.jpg','profile6.jpg']
+    return render_template('editPic.html', profiles=profiles)
+
+@app.route('/editProfile/<newImage>')
+def editProfilePicFunction(newImage):
+    usrId = session['usrId']
+    db.changeProfilePic(usrId, newImage)
+    return redirect(f'/profile/{usrId}')
+
 if __name__ == '__main__':  ## This makes sure the app runs when the python file is ran 
     app.run(debug = True)   ## The debug = true turns the debug on so that when there is an syntax error the 
                             ## browser will show where the problem is, making debugging eaiser

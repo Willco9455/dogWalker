@@ -8,9 +8,15 @@ body {
 }
 
 img{
-    height: 100px;
-    width: auto;
+    height: 150px;
+    width: 150px;
     border-radius: 70%;
+    object-fit: cover;
+    border: 5px solid black;
+}
+
+.header{
+    margin-top: 30px;
 }
 
 .homeButton{
@@ -19,6 +25,9 @@ img{
     background-color: white;
     border: none;
     color: black;
+    padding: 8px 10px; 
+    margin-top: 6px;
+    
 }
 
 .logout{
@@ -26,6 +35,8 @@ img{
     background-color: white;
     border: none;
     color: black;
+    padding: 8px 10px; 
+    margin-top: 6px;
 }
 
 .viewProfile{
@@ -34,8 +45,20 @@ img{
     background-color: white;
     border: none;
     color: black;
+    padding: 8px 10px; 
+    margin-top: 6px;
 }
 
 .header{
     margin-bottom: 40px;
+}
+
+@media only screen and (max-width: 600px) {
+
+    .homeButton{
+        padding-right: 5px;
+    }
+    .logout{ 
+        padding-right: 5px;
+     }
 }

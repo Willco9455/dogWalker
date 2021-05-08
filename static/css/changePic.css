@@ -1,0 +1,20 @@
+a.pics {
+    text-decoration: none;
+    margin: 15px;
+}
+
+div {
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+@media only screen and (max-width: 600px) {
+
+    div {
+        width: 95%;
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+}

@@ -22,18 +22,15 @@
     font-style: italic;
 }
 
-a{
+a#topButton  {
+    background-color: lightblue;
+    margin-top: 60px;
     font-size: 20px;
     border: 2px solid black;
     border-radius: 20px;
-    background-color: red ;
     padding: 8px 10px;
     display: inline-block;
     margin-top: 6px;
     text-decoration: none;
     color: black;
-
-}#topButton {
-    background-color: lightblue;
-    margin-top: 60px;
 }
