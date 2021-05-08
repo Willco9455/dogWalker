@@ -148,11 +148,14 @@ class dbClass:
 
         # adds one to the number of reviews made and saves as new variable
         newNumReviews = data[0][0] + 1
+        print(newNumReviews)
+
 
         # calculates the new mean star rating 
         newStarRating = ((data[0][0] * data[0][1]) + newStar) / newNumReviews
         # rounds the new star rating to the nearest 1/10th
         newStarRating = round(newStarRating, 1)
+        print('newstar' + str(newStarRating))
         # update the current number of review and the current star rating
         c.execute(f'UPDATE users SET numberOfReviews = {newNumReviews}, starRating = {newStarRating} WHERE usrId="{usrId}"')
         conn.commit()
@@ -477,7 +480,7 @@ class dbClass:
 
 # db.addBooking(2,1,'2021-05-03','monday','09:00','10:00')
 # db.addBooking(2,1,'2021-05-04','tuesday','13:00','14:00')
-# db.addBooking(3,4,'2021-05-03','monday','07:00','08:00')
+# # db.addBooking(3,4,'2021-05-03','monday','07:00','08:00')
 
 
 
