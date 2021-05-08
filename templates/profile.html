@@ -14,6 +14,7 @@
         <a class="profilePic" href="/editProfile">
             <img src="{{ url_for('static', filename=userObj.getProfilePic()) }}"><br>
         </a>
+        <span style="font-style: italic; font-size: 12px;">(Click Image to Change)</span>
     {% else %}
         <img src="{{ url_for('static', filename=userObj.getProfilePic()) }}"><br>
     {% endif %}

@@ -254,7 +254,9 @@ def logout():
 
 @app.route('/editProfile')
 def editProfilePicDisplay():
-    profiles = ['profilePic.png','profile1.jpg','profile2.jpg','profile3.jpg','profile4.jpg','profile5.jpg','profile6.jpg']
+    profiles = ['profilePic.png','profile1.jpg','profile2.jpg','profile3.jpg',
+    'profile4.jpg','profile5.jpg','profile6.jpg',
+    'profile7.jpg','profile8.jpg','profile9.jpg','profile10.jpg','profile11.jpg']
     return render_template('editPic.html', profiles=profiles)
 
 @app.route('/editProfile/<newImage>')

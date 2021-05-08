@@ -10,7 +10,7 @@
     {{ super() }}
     <div>
         {% for i in profiles %}
-            <a href="/editProfile/{{ i }}">
+            <a class="pics" href="/editProfile/{{ i }}">
                 <img src="{{ url_for('static', filename = i) }}" >
             </a>
         {% endfor %}

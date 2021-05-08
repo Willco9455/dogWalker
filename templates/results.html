@@ -22,9 +22,9 @@
             [usrId, email, pass, firstName, LastName, accType, postCode] -->
             {% for i in available %}
             <a class="user" href="confirm/{{ i[0] }}">
-                <span style="font-weight: bold;">{{ i[3] }} {{ i[4] }}</span><object ><a class="profile" href="/profile/{{ i[0] }}">View</a> </object> <br>
-                {{ startTime }} - {{ endTime }}
-               
+                <span style="font-weight: bold;">{{ i[3] }} {{ i[4] }}</span><br>
+                {{ startTime }} - {{ endTime }} <br>
+                <object ><a class="profile" href="/profile/{{ i[0] }}">View Profile</a> </object> 
             </a>
         {% endfor %}
     {% endif %}
