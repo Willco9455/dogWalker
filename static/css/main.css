@@ -27,3 +27,15 @@ img{
     border: none;
     color: black;
 }
+
+.viewProfile{
+    padding-right: 25px;
+    text-decoration: underline;
+    background-color: white;
+    border: none;
+    color: black;
+}
+
+.header{
+    margin-bottom: 40px;
+}

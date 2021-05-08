@@ -22,7 +22,9 @@
     <!-- This section handels the reviews  -->
     <p>
         <!-- Will load the leave a review page  -->
-        <a href="/leaveReview/{{ userObj.usrId }}" id="topButton">Leave A Review</a>
+        {% if session['usrId'] != userObj.usrId  %}
+            <a href="/leaveReview/{{ userObj.usrId }}" id="topButton">Leave A Review</a>
+        {% endif %}
         <h4>Most Recent Reviews</h6>
 
         <!-- Loops through the 5 most recent reviews -->
