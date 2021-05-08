@@ -214,6 +214,7 @@ def leaveReview(forId):
     if request.method == 'POST':
         # adds the review through the database mehod
         db.makeReview(session['usrId'], forId, d.today(), int(request.form['star']), request.form['message'].strip())
+
         # redirects back to the profile page that was already loaded
         return redirect(f'/profile/{forId}')
     else: 

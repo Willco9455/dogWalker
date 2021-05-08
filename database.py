@@ -394,7 +394,6 @@ class dbClass:
         VALUES ({byUsrId},{forUsrId},"{date}","{star}","{message}")
         ''')
 
-
         print('booking made successfully')
         conn.commit()
         conn.close()
